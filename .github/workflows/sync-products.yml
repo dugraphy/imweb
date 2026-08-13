@@ -1,3 +1,10 @@
+# ============================================================================
+# 매일 자동으로 tiresearchapp/imweb-sync-products.js를 실행해서
+# tiresearchapp/products.json을 최신화하고 커밋하는 워크플로우입니다.
+#
+# ⚠️ 이 파일 자체는 반드시 저장소 최상위의 .github/workflows/ 안에 있어야 합니다.
+# ============================================================================
+
 name: Sync Imweb Products
 
 on:
@@ -17,11 +24,19 @@ jobs:
         with:
           node-version: '20'
 
+      - name: 의존성 설치
+        working-directory: tiresearchapp
+        run: npm install
+
       - name: 상품 동기화 스크립트 실행
         working-directory: tiresearchapp
         env:
-          IMWEB_API_KEY: ${{ secrets.IMWEB_API_KEY }}
-          IMWEB_API_SECRET: ${{ secrets.IMWEB_API_SECRET }}
+          IMWEB_CLIENT_ID: ${{ secrets.IMWEB_CLIENT_ID }}
+          IMWEB_CLIENT_SECRET: ${{ secrets.IMWEB_CLIENT_SECRET }}
+          IMWEB_REFRESH_TOKEN: ${{ secrets.IMWEB_REFRESH_TOKEN }}
+          IMWEB_UNIT_CODE: ${{ secrets.IMWEB_UNIT_CODE }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: node imweb-sync-products.js
 
       - name: products.json 변경사항 커밋
