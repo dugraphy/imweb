@@ -1,80 +1,88 @@
 /**
  * ============================================================================
- * 아임웹 Open API로 전체 상품을 긁어와 products.json 파일로 저장하는 스크립트
+ * 아임웹 Open API(v3, OAuth2)로 전체 상품을 긁어와 products.json 파일로 저장
  * ============================================================================
- * 이 스크립트는 "브라우저"가 아니라 Node.js 환경(서버, GitHub Actions 등)에서
- * 주기적으로 실행하는 용도입니다. API_KEY / API_SECRET은 절대 브라우저 코드나
- * 공개 저장소에 그대로 커밋하지 마세요. (환경변수로 주입하세요)
+ * Node.js 환경(GitHub Actions 등)에서 주기적으로 실행하는 스크립트입니다.
+ * 절대 브라우저에서 실행하거나, 이 파일에 실제 키 값을 직접 적지 마세요.
  *
- * ▶ 준비물
- * 1. 아임웹 개발자센터(https://developers-docs.imweb.me) 에서 앱 등록 후
- *    API_KEY / API_SECRET 발급
- * 2. Node.js 18 이상 (fetch 내장) — 그보다 낮으면 node-fetch 설치 필요
+ * ▶ 필요한 환경변수
+ *   IMWEB_CLIENT_ID      - 아임웹 개발자센터에서 발급받은 Client ID
+ *   IMWEB_CLIENT_SECRET  - 아임웹 개발자센터에서 발급받은 Client Secret
+ *   IMWEB_REFRESH_TOKEN  - 최초 1회 수동 인증으로 발급받은 Refresh Token
+ *   IMWEB_UNIT_CODE      - 액세스 토큰 안에 담겨있던 unitCode (예: u2026061652f9282162ece)
  *
- * ▶ 실행 방법
- *   IMWEB_API_KEY=xxx IMWEB_API_SECRET=yyy node imweb-sync-products.js
+ *   (선택, 리프레시 토큰 자동 갱신용)
+ *   GH_PAT                - repo 시크릿을 수정할 수 있는 GitHub Personal Access Token
+ *   GITHUB_REPOSITORY     - GitHub Actions가 자동으로 넣어주는 값 (owner/repo)
  *
- * ▶ 실제 응답 구조 관련 주의
- * 아래 코드의 응답 파싱 부분(파일 하단 // TODO 표시)은 아임웹 개발자문서의
- * "상품 조회 - GET /v2/shop/products" 응답 스펙을 기준으로 실제 호출 결과를
- * 한 번 콘솔에 찍어보고(console.log(JSON.stringify(res,null,2))) 필드명을
- * 맞춰주셔야 합니다. API 응답 필드명은 문서 버전에 따라 달라질 수 있습니다.
+ * ▶ 로컬 실행 예시
+ *   IMWEB_CLIENT_ID=xxx IMWEB_CLIENT_SECRET=xxx IMWEB_REFRESH_TOKEN=xxx IMWEB_UNIT_CODE=xxx node imweb-sync-products.js
  * ============================================================================
  */
 
 const fs = require('fs');
 const path = require('path');
 
-const API_KEY    = process.env.IMWEB_API_KEY;
-const API_SECRET = process.env.IMWEB_API_SECRET;
-const OUTPUT_FILE = path.join(__dirname, 'products.json');
+const CLIENT_ID     = process.env.IMWEB_CLIENT_ID;
+const CLIENT_SECRET = process.env.IMWEB_CLIENT_SECRET;
+const REFRESH_TOKEN = process.env.IMWEB_REFRESH_TOKEN;
+const UNIT_CODE     = process.env.IMWEB_UNIT_CODE;
 
-if (!API_KEY || !API_SECRET) {
-  console.error('IMWEB_API_KEY / IMWEB_API_SECRET 환경변수가 필요합니다.');
+const GH_PAT             = process.env.GH_PAT || null;
+const GITHUB_REPOSITORY  = process.env.GITHUB_REPOSITORY || null;
+
+const OUTPUT_FILE = path.join(__dirname, 'products.json');
+// 실제 상품목록 페이지 경로에 맞게 필요시 수정하세요.
+const SHOP_PATH = '/15/';
+
+if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN || !UNIT_CODE) {
+  console.error('IMWEB_CLIENT_ID / IMWEB_CLIENT_SECRET / IMWEB_REFRESH_TOKEN / IMWEB_UNIT_CODE 환경변수가 모두 필요합니다.');
   process.exit(1);
 }
 
-async function getAccessToken() {
-  const res = await fetch('https://api.imweb.me/v2/auth', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ key: API_KEY, secret: API_SECRET })
+async function refreshAccessToken() {
+  const body = new URLSearchParams({
+    grantType: 'refresh_token',
+    clientId: CLIENT_ID,
+    clientSecret: CLIENT_SECRET,
+    refreshToken: REFRESH_TOKEN
   });
-  if (!res.ok) throw new Error('인증 실패: ' + res.status + ' ' + await res.text());
-  const data = await res.json();
-  // TODO: 실제 응답 구조 확인 후 아래 경로 수정 (예상: data.access_token 또는 data.data.access_token)
-  const token = data.access_token || (data.data && data.data.access_token);
-  if (!token) throw new Error('access_token을 응답에서 찾지 못했습니다: ' + JSON.stringify(data));
-  return token;
+
+  const res = await fetch('https://openapi.imweb.me/oauth2/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body
+  });
+
+  const json = await res.json();
+  if (!res.ok || !json?.data?.accessToken) {
+    throw new Error('토큰 갱신 실패: ' + JSON.stringify(json));
+  }
+  return json.data; // { accessToken, refreshToken, scope }
 }
 
-async function fetchAllProducts(token) {
+async function fetchAllProducts(accessToken) {
   const all = [];
   let page = 1;
-  const limit = 100; // 한 번에 가져올 개수 (문서의 최대 허용치로 조정)
+  const limit = 100;
 
   while (true) {
-    const url = `https://api.imweb.me/v2/shop/products?page=${page}&limit=${limit}`;
+    const url = `https://openapi.imweb.me/products?page=${page}&limit=${limit}&unitCode=${encodeURIComponent(UNIT_CODE)}`;
     const res = await fetch(url, {
-      headers: { 'access-token': token, 'Content-Type': 'application/json' }
+      headers: { Authorization: `Bearer ${accessToken}` }
     });
-    if (!res.ok) throw new Error('상품 조회 실패: ' + res.status + ' ' + await res.text());
-    const body = await res.json();
+    const json = await res.json();
+    if (!res.ok || json.statusCode !== 200) {
+      throw new Error('상품 조회 실패: ' + JSON.stringify(json));
+    }
 
-    // TODO: 실제 응답 구조에 맞춰 리스트 경로 / 총 페이지(또는 총 개수) 경로 수정
-    const list = body.data?.list || body.list || [];
-    const totalCount = body.data?.total_count ?? body.total_count ?? null;
-
-    if (!list.length) break;
+    const list = json.data.list || [];
     all.push(...list);
+    console.log(`page ${page}/${json.data.totalPage} 완료 (누적 ${all.length}/${json.data.totalCount})`);
 
-    console.log(`page ${page} 완료 (누적 ${all.length}개)`);
-
-    if (totalCount !== null && all.length >= totalCount) break;
-    if (list.length < limit) break; // 마지막 페이지로 판단
+    if (page >= json.data.totalPage) break;
     page++;
-
-    await sleep(300); // API 호출 제한(rate limit) 대비 간단한 딜레이
+    await sleep(200);
   }
 
   return all;
@@ -89,36 +97,74 @@ function parseTitle(title) {
   return { width: +m[1], profile: +m[2], rim: +m[3], model: m[4].trim() };
 }
 
+// GitHub Secrets에 새 refreshToken을 자동으로 업데이트 (선택 기능)
+async function updateGithubSecret(name, value) {
+  if (!GH_PAT || !GITHUB_REPOSITORY) {
+    console.log('GH_PAT 또는 GITHUB_REPOSITORY가 없어 시크릿 자동 갱신은 건너뜁니다.');
+    return;
+  }
+  const sodium = require('libsodium-wrappers');
+  await sodium.ready;
+
+  const [owner, repo] = GITHUB_REPOSITORY.split('/');
+  const keyRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/actions/secrets/public-key`, {
+    headers: { Authorization: `Bearer ${GH_PAT}`, Accept: 'application/vnd.github+json' }
+  });
+  const keyData = await keyRes.json();
+
+  const binKey = sodium.from_base64(keyData.key, sodium.base64_variants.ORIGINAL);
+  const binVal = sodium.from_string(value);
+  const encBytes = sodium.crypto_box_seal(binVal, binKey);
+  const encrypted = sodium.to_base64(encBytes, sodium.base64_variants.ORIGINAL);
+
+  const putRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/actions/secrets/${name}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${GH_PAT}`,
+      Accept: 'application/vnd.github+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ encrypted_value: encrypted, key_id: keyData.key_id })
+  });
+
+  if (!putRes.ok) {
+    console.error('시크릿 자동 갱신 실패:', await putRes.text());
+  } else {
+    console.log(`GitHub Secret [${name}] 갱신 완료`);
+  }
+}
+
 async function main() {
-  console.log('아임웹 인증 중...');
-  const token = await getAccessToken();
+  console.log('액세스 토큰 갱신 중...');
+  const tokenData = await refreshAccessToken();
+  console.log('토큰 갱신 완료. scope:', tokenData.scope);
 
   console.log('전체 상품 조회 중...');
-  const rawProducts = await fetchAllProducts(token);
+  const rawProducts = await fetchAllProducts(tokenData.accessToken);
   console.log(`총 ${rawProducts.length}개 상품 조회 완료`);
 
   const products = rawProducts
     .map(p => {
-      // TODO: 실제 응답 필드명에 맞춰 매핑 수정
-      const name  = p.name || p.prod_name || '';
-      const idx   = p.prod_no || p.code || p.idx;
-      const price = p.price ?? p.sell_price ?? 0;
-      const image = (p.images && p.images[0] && p.images[0].url) || p.image_url || '';
-      const parsed = parseTitle(name);
-
+      const parsed = parseTitle(p.name);
       return {
-        idx,
-        name,
-        price,
-        img: image,
-        href: `/15/?idx=${idx}`, // 실제 상품목록 페이지 경로에 맞게 수정
+        idx: p.prodNo,
+        name: p.name,
+        price: p.price,
+        oldPrice: p.priceOrg,
+        img: (p.productImages && p.productImages[0]) || '',
+        href: `${SHOP_PATH}?idx=${p.prodNo}`,
         ...(parsed || {})
       };
     })
-    .filter(p => p.width); // 사이즈 파싱에 실패한 상품은 필터 데이터에서 제외
+    .filter(p => p.width); // 사이즈 파싱 실패한 상품은 필터 데이터에서 제외
 
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(products, null, 2), 'utf-8');
   console.log(`저장 완료: ${OUTPUT_FILE} (${products.length}개 필터링 가능 상품)`);
+
+  // 다음 실행을 위해 새로 발급된 refreshToken을 GitHub Secrets에 반영 시도
+  if (tokenData.refreshToken && tokenData.refreshToken !== REFRESH_TOKEN) {
+    await updateGithubSecret('IMWEB_REFRESH_TOKEN', tokenData.refreshToken);
+  }
 }
 
 main().catch(err => {
