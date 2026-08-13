@@ -1,0 +1,10 @@
+{
+  "name": "tiresearchapp-sync",
+  "version": "1.0.0",
+  "private": true,
+  "description": "아임웹 상품 데이터를 products.json으로 동기화하는 스크립트",
+  "main": "imweb-sync-products.js",
+  "dependencies": {
+    "libsodium-wrappers": "^0.7.13"
+  }
+}
