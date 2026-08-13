@@ -7,8 +7,6 @@ on:
   schedule:
     - cron: '*/5 * * * *'    # 5분마다 자동 실행 (GitHub Actions가 지원하는 최소 주기)
   workflow_dispatch: {}       # 수동 실행 버튼 활성화
-  repository_dispatch:
-    types: [imweb-product-changed]   # 상품 삭제 웹훅 등, 향후 지원되는 이벤트로부터 실시간 트리거
  
 jobs:
   sync:
