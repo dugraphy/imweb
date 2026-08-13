@@ -7,6 +7,9 @@
 
 name: Sync Imweb Products
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: '0 18 * * *'   # 매일 UTC 18:00 = 한국시간(KST) 새벽 3시
