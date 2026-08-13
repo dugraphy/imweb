@@ -1,50 +1,52 @@
 [
   {
     "idx": 59,
-    "name": "215/55R17 엔프리즈 AH5",
+    "name": "275/35R20 올시즌콘택2 ASC2",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/12b68c167429f.jpg",
     "href": "/tirelist?idx=59",
-    "width": 215,
-    "profile": 55,
-    "rim": 17,
+    "width": 275,
+    "profile": 35,
+    "rim": 20,
     "brands": [
-      "넥센타이어"
+      "컨티넨탈"
     ],
     "vehicle": [
+      "전기차",
       "승용"
     ]
   },
   {
     "idx": 58,
-    "name": "205/65R15 IQ 시리즈 1",
+    "name": "255/40R21 올시즌콘택2 ASC2",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/80eef5f2f3b29.jpg",
     "href": "/tirelist?idx=58",
-    "width": 205,
-    "profile": 65,
-    "rim": 15,
+    "width": 255,
+    "profile": 40,
+    "rim": 21,
     "brands": [
-      "넥센타이어"
+      "컨티넨탈"
     ],
     "vehicle": [
+      "전기차",
       "승용"
     ]
   },
   {
     "idx": 57,
-    "name": "215/55R17 엔프리즈 AH8",
+    "name": "245/50R20 크로스콘택 LX 스포츠",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/9ac85f3c2e411.jpg",
     "href": "/tirelist?idx=57",
-    "width": 215,
-    "profile": 55,
-    "rim": 17,
+    "width": 245,
+    "profile": 50,
+    "rim": 20,
     "brands": [
-      "넥센타이어"
+      "컨티넨탈"
     ],
     "vehicle": [
       "승용"
@@ -52,16 +54,16 @@
   },
   {
     "idx": 56,
-    "name": "205/65R16 마일캡 MILECAP 2",
+    "name": "245/40R19 프로콘택 RX CSI",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/7af6a19ed243f.jpg",
     "href": "/tirelist?idx=56",
-    "width": 205,
-    "profile": 65,
-    "rim": 16,
+    "width": 245,
+    "profile": 40,
+    "rim": 19,
     "brands": [
-      "넥센타이어"
+      "컨티넨탈"
     ],
     "vehicle": [
       "승용"
@@ -69,16 +71,16 @@
   },
   {
     "idx": 55,
-    "name": "195/60R15 IQ 시리즈 1",
+    "name": "255/45R20 크로스콘택 LX 스포츠",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/992f0434de3d7.jpg",
     "href": "/tirelist?idx=55",
-    "width": 195,
-    "profile": 60,
-    "rim": 15,
+    "width": 255,
+    "profile": 45,
+    "rim": 20,
     "brands": [
-      "넥센타이어"
+      "컨티넨탈"
     ],
     "vehicle": [
       "승용"
@@ -86,16 +88,16 @@
   },
   {
     "idx": 54,
-    "name": "205/50R17 엔프리즈 AH8",
+    "name": "255/45R18 콘티프로콘택",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/c3f7130527ba7.jpg",
     "href": "/tirelist?idx=54",
-    "width": 205,
-    "profile": 50,
-    "rim": 17,
+    "width": 255,
+    "profile": 45,
+    "rim": 18,
     "brands": [
-      "넥센타이어"
+      "컨티넨탈"
     ],
     "vehicle": [
       "승용"
@@ -103,16 +105,16 @@
   },
   {
     "idx": 53,
-    "name": "175/50R15 엔프리즈 S (전기차겸용)",
+    "name": "245/40R19 뉴 피제로 P zero",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/86f119a83ad4e.jpg",
     "href": "/tirelist?idx=53",
-    "width": 175,
-    "profile": 50,
-    "rim": 15,
+    "width": 245,
+    "profile": 40,
+    "rim": 19,
     "brands": [
-      "넥센타이어"
+      "피렐리"
     ],
     "vehicle": [
       "승용"
@@ -120,16 +122,16 @@
   },
   {
     "idx": 52,
-    "name": "225/55R16 엔프리즈 AH8",
+    "name": "245/45R18 뉴 피제로 P zero",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/16b99fd78aa7d.jpg",
     "href": "/tirelist?idx=52",
-    "width": 225,
-    "profile": 55,
-    "rim": 16,
+    "width": 245,
+    "profile": 45,
+    "rim": 18,
     "brands": [
-      "넥센타이어"
+      "피렐리"
     ],
     "vehicle": [
       "승용"
@@ -137,67 +139,70 @@
   },
   {
     "idx": 51,
-    "name": "195/65R15 IQ 시리즈 1",
+    "name": "255/50R19 스콜피온 베르디 올시즌 SVAS",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/a0f7b05f0cec5.jpg",
     "href": "/tirelist?idx=51",
-    "width": 195,
-    "profile": 65,
-    "rim": 15,
+    "width": 255,
+    "profile": 50,
+    "rim": 19,
     "brands": [
-      "넥센타이어"
+      "피렐리"
     ],
     "vehicle": [
+      "RV/SUV",
       "승용"
     ]
   },
   {
     "idx": 50,
-    "name": "215/70R15 IQ 시리즈 1",
+    "name": "235/55R20 스콜피온 베르디 올시즌 SVAS",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/c38cffcf5be2c.jpg",
     "href": "/tirelist?idx=50",
-    "width": 215,
-    "profile": 70,
-    "rim": 15,
+    "width": 235,
+    "profile": 55,
+    "rim": 20,
     "brands": [
-      "넥센타이어"
+      "피렐리"
     ],
     "vehicle": [
+      "RV/SUV",
       "승용"
     ]
   },
   {
     "idx": 49,
-    "name": "215/55R16 엔프리즈 AH8",
+    "name": "265/45R20 스콜피온 베르디 올시즌 SVAS",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/87e690dc2b591.jpg",
     "href": "/tirelist?idx=49",
-    "width": 215,
-    "profile": 55,
-    "rim": 16,
+    "width": 265,
+    "profile": 45,
+    "rim": 20,
     "brands": [
-      "넥센타이어"
+      "피렐리"
     ],
     "vehicle": [
+      "RV/SUV",
       "승용"
     ]
   },
   {
     "idx": 48,
-    "name": "205/70R15 IQ 시리즈 1",
+    "name": "205/55R17 신투라토 P7",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/eb091207fc4f8.jpg",
     "href": "/tirelist?idx=48",
     "width": 205,
-    "profile": 70,
-    "rim": 15,
+    "profile": 55,
+    "rim": 17,
     "brands": [
-      "넥센타이어"
+      "피렐리"
     ],
     "vehicle": [
       "승용"
@@ -205,16 +210,16 @@
   },
   {
     "idx": 47,
-    "name": "185/65R15 IQ 시리즈 1",
+    "name": "225/45R18 신투라토 P7",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/151c515ac3405.jpg",
     "href": "/tirelist?idx=47",
-    "width": 185,
-    "profile": 65,
-    "rim": 15,
+    "width": 225,
+    "profile": 45,
+    "rim": 18,
     "brands": [
-      "넥센타이어"
+      "피렐리"
     ],
     "vehicle": [
       "승용"
@@ -222,16 +227,16 @@
   },
   {
     "idx": 46,
-    "name": "205/55R16 마일캡 MILECAP 2",
+    "name": "235/55R17 블루어스 포에스 AW21",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/632550773930b.jpg",
     "href": "/tirelist?idx=46",
-    "width": 205,
+    "width": 235,
     "profile": 55,
-    "rim": 16,
+    "rim": 17,
     "brands": [
-      "넥센타이어"
+      "요코하마"
     ],
     "vehicle": [
       "승용"
@@ -239,16 +244,16 @@
   },
   {
     "idx": 45,
-    "name": "215/65R15 마일캡 MILECAP",
+    "name": "245/45R18 블루어스 포에스 AW21",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/b647c6bb0822d.jpg",
     "href": "/tirelist?idx=45",
-    "width": 215,
-    "profile": 65,
-    "rim": 15,
+    "width": 245,
+    "profile": 45,
+    "rim": 18,
     "brands": [
-      "넥센타이어"
+      "요코하마"
     ],
     "vehicle": [
       "승용"
@@ -256,16 +261,16 @@
   },
   {
     "idx": 44,
-    "name": "185/60R15 엔프리즈 AH8",
+    "name": "225/55R19 블루어스 포에스 AW21",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/6675ba6eabcb0.jpg",
     "href": "/tirelist?idx=44",
-    "width": 185,
-    "profile": 60,
-    "rim": 15,
+    "width": 225,
+    "profile": 55,
+    "rim": 19,
     "brands": [
-      "넥센타이어"
+      "요코하마"
     ],
     "vehicle": [
       "승용"
@@ -273,16 +278,16 @@
   },
   {
     "idx": 43,
-    "name": "185/65R15 엔프리즈 AH8",
+    "name": "265/65R17 지오랜더 에이티 G015",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/bc02ad272ed3f.jpg",
     "href": "/tirelist?idx=43",
-    "width": 185,
+    "width": 265,
     "profile": 65,
-    "rim": 15,
+    "rim": 17,
     "brands": [
-      "넥센타이어"
+      "요코하마"
     ],
     "vehicle": [
       "승용"
@@ -290,16 +295,16 @@
   },
   {
     "idx": 42,
-    "name": "205/65R15 마일캡 MILECAP",
+    "name": "265/60R18 지오랜더 에이티 G015",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/bb7c5ec2622b5.jpg",
     "href": "/tirelist?idx=42",
-    "width": 205,
-    "profile": 65,
-    "rim": 15,
+    "width": 265,
+    "profile": 60,
+    "rim": 18,
     "brands": [
-      "넥센타이어"
+      "요코하마"
     ],
     "vehicle": [
       "승용"
@@ -307,16 +312,16 @@
   },
   {
     "idx": 41,
-    "name": "205/55R16 엔프리즈 AH8",
+    "name": "265/50R20 지오랜더 에이티 G015",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/c5a948793b1bb.jpg",
     "href": "/tirelist?idx=41",
-    "width": 205,
-    "profile": 55,
-    "rim": 16,
+    "width": 265,
+    "profile": 50,
+    "rim": 20,
     "brands": [
-      "넥센타이어"
+      "요코하마"
     ],
     "vehicle": [
       "승용"
@@ -528,16 +533,16 @@
   },
   {
     "idx": 28,
-    "name": "175/50R15 IQ 시리즈 1",
+    "name": "245/45R18 프라이머시 투어 A/S",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/8e8f7369f80fe.jpg",
     "href": "/tirelist?idx=28",
-    "width": 175,
-    "profile": 50,
-    "rim": 15,
+    "width": 245,
+    "profile": 45,
+    "rim": 18,
     "brands": [
-      "넥센타이어"
+      "미쉐린"
     ],
     "vehicle": [
       "승용"
@@ -545,16 +550,16 @@
   },
   {
     "idx": 27,
-    "name": "185/65R14 엔프리즈 AH8",
+    "name": "235/55R19 프라이머시 투어 A/S",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/524789b92e10e.jpg",
     "href": "/tirelist?idx=27",
-    "width": 185,
-    "profile": 65,
-    "rim": 14,
+    "width": 235,
+    "profile": 55,
+    "rim": 19,
     "brands": [
-      "넥센타이어"
+      "미쉐린"
     ],
     "vehicle": [
       "승용"
@@ -562,16 +567,16 @@
   },
   {
     "idx": 26,
-    "name": "195/70R14 IQ 시리즈 1",
+    "name": "245/50R18 프라이머시 투어 A/S",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/d234289998d1a.jpg",
     "href": "/tirelist?idx=26",
-    "width": 195,
-    "profile": 70,
-    "rim": 14,
+    "width": 245,
+    "profile": 50,
+    "rim": 18,
     "brands": [
-      "넥센타이어"
+      "미쉐린"
     ],
     "vehicle": [
       "승용"
@@ -579,16 +584,16 @@
   },
   {
     "idx": 25,
-    "name": "175/60R13 IQ 시리즈 1",
+    "name": "245/50R20 프라이머시 투어 A/S",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/363e24fb1e965.jpg",
     "href": "/tirelist?idx=25",
-    "width": 175,
-    "profile": 60,
-    "rim": 13,
+    "width": 245,
+    "profile": 50,
+    "rim": 20,
     "brands": [
-      "넥센타이어"
+      "미쉐린"
     ],
     "vehicle": [
       "승용"
@@ -596,16 +601,16 @@
   },
   {
     "idx": 24,
-    "name": "165/65R13 IQ 시리즈 1",
+    "name": "275/35R19 프라이머시 투어 A/S",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/df81f8904a096.jpg",
     "href": "/tirelist?idx=24",
-    "width": 165,
-    "profile": 65,
-    "rim": 13,
+    "width": 275,
+    "profile": 35,
+    "rim": 19,
     "brands": [
-      "넥센타이어"
+      "미쉐린"
     ],
     "vehicle": [
       "승용"
@@ -613,16 +618,16 @@
   },
   {
     "idx": 23,
-    "name": "175/70R13 IQ 시리즈 1",
+    "name": "245/45R19 프라이머시 투어 A/S",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/2722d65e3b9ce.jpg",
     "href": "/tirelist?idx=23",
-    "width": 175,
-    "profile": 70,
-    "rim": 13,
+    "width": 245,
+    "profile": 45,
+    "rim": 19,
     "brands": [
-      "넥센타이어"
+      "미쉐린"
     ],
     "vehicle": [
       "승용"
@@ -630,20 +635,18 @@
   },
   {
     "idx": 22,
-    "name": "155/70R13 IQ 시리즈 1",
+    "name": "275/40R19 프라이머시 투어 A/S",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/261cfeebc01a0.jpg",
     "href": "/tirelist?idx=22",
-    "width": 155,
-    "profile": 70,
-    "rim": 13,
+    "width": 275,
+    "profile": 40,
+    "rim": 19,
     "brands": [
-      "넥센타이어"
+      "미쉐린"
     ],
-    "vehicle": [
-      "승용"
-    ]
+    "vehicle": []
   },
   {
     "idx": 21,
@@ -739,91 +742,93 @@
   },
   {
     "idx": 15,
-    "name": "155/70R13 솔루스 TA21",
+    "name": "245/50R20 라우펜 S피트 AS LH01",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/a5c8bbb371ff8.jpg",
     "href": "/tirelist?idx=15",
-    "width": 155,
-    "profile": 70,
-    "rim": 13,
+    "width": 245,
+    "profile": 50,
+    "rim": 20,
     "brands": [
-      "금호타이어"
+      "한국타이어"
     ],
     "vehicle": []
   },
   {
     "idx": 14,
-    "name": "155/70R14 솔루스 TA21",
+    "name": "215/50R17 벤투스 S2 AS H462",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/354737dbb69ee.jpg",
     "href": "/tirelist?idx=14",
-    "width": 155,
-    "profile": 70,
-    "rim": 14,
+    "width": 215,
+    "profile": 50,
+    "rim": 17,
     "brands": [
-      "금호타이어"
+      "한국타이어"
     ],
     "vehicle": []
   },
   {
     "idx": 13,
-    "name": "175/70R13 솔루스 TA21",
+    "name": "225/55R17 키너지 ST AS H318",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/fc9dd2fca4d81.jpg",
     "href": "/tirelist?idx=13",
-    "width": 175,
-    "profile": 70,
-    "rim": 13,
+    "width": 225,
+    "profile": 55,
+    "rim": 17,
     "brands": [
-      "금호타이어"
+      "한국타이어"
     ],
     "vehicle": []
   },
   {
     "idx": 12,
-    "name": "155/65R13 솔루스 TA21",
+    "name": "235/60R17 라우펜 G피트 AS LH41",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/8ca3d21c39c9c.jpg",
     "href": "/tirelist?idx=12",
-    "width": 155,
-    "profile": 65,
-    "rim": 13,
+    "width": 235,
+    "profile": 60,
+    "rim": 17,
     "brands": [
-      "금호타이어"
+      "한국타이어"
     ],
     "vehicle": []
   },
   {
     "idx": 11,
-    "name": "165/65R13 솔루스 TA21",
+    "name": "235/55R18 다이나프로 HP3 RA55",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/84dfa6353bf81.jpg",
     "href": "/tirelist?idx=11",
-    "width": 165,
-    "profile": 65,
-    "rim": 13,
+    "width": 235,
+    "profile": 55,
+    "rim": 18,
     "brands": [
-      "금호타이어"
+      "한국타이어"
     ],
-    "vehicle": []
+    "vehicle": [
+      "RV/SUV"
+    ]
   },
   {
     "idx": 2,
-    "name": "155/80R13 솔루스 TA21",
+    "name": "185/65R14 라우펜 G피트 AS LH41",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/d39b9f0785c0d.jpg",
     "href": "/tirelist?idx=2",
-    "width": 155,
-    "profile": 80,
-    "rim": 13,
+    "width": 185,
+    "profile": 65,
+    "rim": 14,
     "brands": [
-      "금호타이어"
+      "한국타이어"
     ],
     "vehicle": []
   }
