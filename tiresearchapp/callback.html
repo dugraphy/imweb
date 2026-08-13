@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>아임웹 인증 콜백</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body{
+    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    background:#f7f7f8; color:#1b1f27; padding:24px;
+  }
+  .box{
+    max-width:520px; width:100%; background:#fff; border:1px solid #e3e5e8;
+    border-radius:12px; padding:32px; text-align:center;
+  }
+  h1{ font-size:18px; margin:0 0 16px; }
+  .code-box{
+    background:#f7f7f8; border:1px solid #e3e5e8; border-radius:8px;
+    padding:16px; font-family:monospace; font-size:14px; word-break:break-all;
+    margin:16px 0; user-select:all;
+  }
+  .empty{ color:#9aa0a8; font-size:14px; }
+  .error{ color:#e6473c; font-size:14px; margin-top:8px; }
+  button{
+    background:#2e5fdb; color:#fff; border:none; border-radius:6px;
+    padding:11px 20px; font-size:14px; font-weight:600; cursor:pointer;
+  }
+  button:hover{ background:#254bb0; }
+  .hint{ font-size:12px; color:#6b7280; margin-top:20px; line-height:1.6; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <h1>인증 코드(code)</h1>
+    <div id="codeArea"></div>
+    <div id="btnArea"></div>
+    <div class="hint">
+      이 code 값은 아임웹 개발자센터 문서의 "Access Token 발급 요청"(POST https://openapi.imweb.me/oauth2/token)
+      호출에 그대로 사용하시면 됩니다. code는 발급 후 짧은 시간 안에 만료되니 바로 사용해 주세요.
+    </div>
+  </div>
+
+<script>
+  var params = new URLSearchParams(window.location.search);
+  var code = params.get('code');
+  var errorCode = params.get('errorCode');
+  var message = params.get('message');
+  var codeArea = document.getElementById('codeArea');
+  var btnArea = document.getElementById('btnArea');
+
+  if (code) {
+    var box = document.createElement('div');
+    box.className = 'code-box';
+    box.textContent = code;
+    codeArea.appendChild(box);
+
+    var btn = document.createElement('button');
+    btn.textContent = '클립보드에 복사';
+    btn.addEventListener('click', function(){
+      navigator.clipboard.writeText(code).then(function(){
+        btn.textContent = '복사됨!';
+        setTimeout(function(){ btn.textContent = '클립보드에 복사'; }, 1500);
+      });
+    });
+    btnArea.appendChild(btn);
+  } else if (errorCode) {
+    codeArea.innerHTML = '<div class="error">인증 실패: ' + errorCode + (message ? ' — ' + message : '') + '</div>';
+  } else {
+    codeArea.innerHTML = '<div class="empty">전달받은 code가 없습니다. 아임웹 인증 화면을 통해 다시 진입해주세요.</div>';
+  }
+</script>
+</body>
+</html>
