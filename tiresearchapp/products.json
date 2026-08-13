@@ -1,5 +1,192 @@
 [
   {
+    "idx": 33,
+    "name": "165/65R14 엔프리즈 S (전기차겸용)",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/2eded47e2de11.jpg",
+    "href": "/tirelist?idx=33",
+    "width": 165,
+    "profile": 65,
+    "rim": 14,
+    "brands": [
+      "넥센타이어"
+    ],
+    "vehicle": [
+      "승용"
+    ]
+  },
+  {
+    "idx": 32,
+    "name": "175/65R14 엔프리즈 AH5",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/ea22982158659.jpg",
+    "href": "/tirelist?idx=32",
+    "width": 175,
+    "profile": 65,
+    "rim": 14,
+    "brands": [
+      "넥센타이어"
+    ],
+    "vehicle": [
+      "승용"
+    ]
+  },
+  {
+    "idx": 31,
+    "name": "165/60R14 IQ 시리즈 1",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/ed4ccd937f389.jpg",
+    "href": "/tirelist?idx=31",
+    "width": 165,
+    "profile": 60,
+    "rim": 14,
+    "brands": [
+      "넥센타이어"
+    ],
+    "vehicle": [
+      "승용"
+    ]
+  },
+  {
+    "idx": 30,
+    "name": "185/65R14 IQ 시리즈 1",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/2118bd6ec780d.jpg",
+    "href": "/tirelist?idx=30",
+    "width": 185,
+    "profile": 65,
+    "rim": 14,
+    "brands": [
+      "넥센타이어"
+    ],
+    "vehicle": [
+      "승용"
+    ]
+  },
+  {
+    "idx": 28,
+    "name": "175/50R15 IQ 시리즈 1",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/8e8f7369f80fe.jpg",
+    "href": "/tirelist?idx=28",
+    "width": 175,
+    "profile": 50,
+    "rim": 15,
+    "brands": [
+      "넥센타이어"
+    ],
+    "vehicle": [
+      "승용"
+    ]
+  },
+  {
+    "idx": 27,
+    "name": "185/65R14 엔프리즈 AH8",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/524789b92e10e.jpg",
+    "href": "/tirelist?idx=27",
+    "width": 185,
+    "profile": 65,
+    "rim": 14,
+    "brands": [
+      "넥센타이어"
+    ],
+    "vehicle": [
+      "승용"
+    ]
+  },
+  {
+    "idx": 26,
+    "name": "195/70R14 IQ 시리즈 1",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/d234289998d1a.jpg",
+    "href": "/tirelist?idx=26",
+    "width": 195,
+    "profile": 70,
+    "rim": 14,
+    "brands": [
+      "넥센타이어"
+    ],
+    "vehicle": [
+      "승용"
+    ]
+  },
+  {
+    "idx": 25,
+    "name": "175/60R13 IQ 시리즈 1",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/363e24fb1e965.jpg",
+    "href": "/tirelist?idx=25",
+    "width": 175,
+    "profile": 60,
+    "rim": 13,
+    "brands": [
+      "넥센타이어"
+    ],
+    "vehicle": [
+      "승용"
+    ]
+  },
+  {
+    "idx": 24,
+    "name": "165/65R13 IQ 시리즈 1",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/df81f8904a096.jpg",
+    "href": "/tirelist?idx=24",
+    "width": 165,
+    "profile": 65,
+    "rim": 13,
+    "brands": [
+      "넥센타이어"
+    ],
+    "vehicle": [
+      "승용"
+    ]
+  },
+  {
+    "idx": 23,
+    "name": "175/70R13 IQ 시리즈 1",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/2722d65e3b9ce.jpg",
+    "href": "/tirelist?idx=23",
+    "width": 175,
+    "profile": 70,
+    "rim": 13,
+    "brands": [
+      "넥센타이어"
+    ],
+    "vehicle": [
+      "승용"
+    ]
+  },
+  {
+    "idx": 22,
+    "name": "155/70R13 IQ 시리즈 1",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/261cfeebc01a0.jpg",
+    "href": "/tirelist?idx=22",
+    "width": 155,
+    "profile": 70,
+    "rim": 13,
+    "brands": [
+      "넥센타이어"
+    ],
+    "vehicle": [
+      "승용"
+    ]
+  },
+  {
     "idx": 21,
     "name": "165/60R15 솔루스 TA31",
     "price": 45000000,
@@ -10,7 +197,7 @@
     "profile": 60,
     "rim": 15,
     "brands": [
-      "한국타이어"
+      "금호타이어"
     ],
     "vehicle": [
       "승용"
@@ -27,7 +214,7 @@
     "profile": 60,
     "rim": 14,
     "brands": [
-      "한국타이어"
+      "금호타이어"
     ],
     "vehicle": []
   },
@@ -42,7 +229,7 @@
     "profile": 60,
     "rim": 15,
     "brands": [
-      "한국타이어"
+      "금호타이어"
     ],
     "vehicle": []
   },
@@ -57,7 +244,7 @@
     "profile": 70,
     "rim": 14,
     "brands": [
-      "한국타이어"
+      "금호타이어"
     ],
     "vehicle": []
   },
@@ -72,7 +259,7 @@
     "profile": 60,
     "rim": 13,
     "brands": [
-      "한국타이어"
+      "금호타이어"
     ],
     "vehicle": []
   },
@@ -87,7 +274,7 @@
     "profile": 65,
     "rim": 14,
     "brands": [
-      "한국타이어"
+      "금호타이어"
     ],
     "vehicle": []
   },
@@ -102,13 +289,13 @@
     "profile": 70,
     "rim": 13,
     "brands": [
-      "한국타이어"
+      "금호타이어"
     ],
     "vehicle": []
   },
   {
     "idx": 14,
-    "name": "콘티넨탈 155/70R14 솔루스 TA21",
+    "name": "155/70R14 솔루스 TA21",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/354737dbb69ee.jpg",
@@ -117,13 +304,13 @@
     "profile": 70,
     "rim": 14,
     "brands": [
-      "한국타이어"
+      "금호타이어"
     ],
     "vehicle": []
   },
   {
     "idx": 13,
-    "name": "콘티넨탈 175/70R13 솔루스 TA21",
+    "name": "175/70R13 솔루스 TA21",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/fc9dd2fca4d81.jpg",
@@ -132,13 +319,13 @@
     "profile": 70,
     "rim": 13,
     "brands": [
-      "한국타이어"
+      "금호타이어"
     ],
     "vehicle": []
   },
   {
     "idx": 12,
-    "name": "콘티넨탈 155/65R13 솔루스 TA21",
+    "name": "155/65R13 솔루스 TA21",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/8ca3d21c39c9c.jpg",
@@ -147,13 +334,13 @@
     "profile": 65,
     "rim": 13,
     "brands": [
-      "한국타이어"
+      "금호타이어"
     ],
     "vehicle": []
   },
   {
     "idx": 11,
-    "name": "콘티넨탈 165/65R13 솔루스 TA21",
+    "name": "165/65R13 솔루스 TA21",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/84dfa6353bf81.jpg",
@@ -162,13 +349,13 @@
     "profile": 65,
     "rim": 13,
     "brands": [
-      "한국타이어"
+      "금호타이어"
     ],
     "vehicle": []
   },
   {
     "idx": 2,
-    "name": "콘티넨탈 155/80R13 솔루스 TA21",
+    "name": "155/80R13 솔루스 TA21",
     "price": 45000000,
     "oldPrice": 48000000,
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/d39b9f0785c0d.jpg",
@@ -177,7 +364,7 @@
     "profile": 80,
     "rim": 13,
     "brands": [
-      "한국타이어"
+      "금호타이어"
     ],
     "vehicle": []
   }
