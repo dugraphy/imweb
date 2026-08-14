@@ -2,7 +2,10 @@ name: Sync Imweb Products
  
 permissions:
   contents: write
- 
+  concurrency:
+  group: sync-imweb
+  cancel-in-progress: false
+  
 on:
   schedule:
     - cron: '*/5 * * * *'    # 5분마다 자동 실행 (GitHub Actions가 지원하는 최소 주기)
