@@ -8,9 +8,7 @@ concurrency:
   cancel-in-progress: false
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'    # 5분마다 자동 실행 (GitHub Actions가 지원하는 최소 주기)
-  workflow_dispatch: {}       # 수동 실행 버튼 활성화
+  workflow_dispatch: {}       # 수동 실행 버튼 + cron-job.org 외부 트리거가 이걸 호출함
 
 jobs:
   sync:
