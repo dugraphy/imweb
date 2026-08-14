@@ -22,6 +22,11 @@
  *   - "승용" 포함 → 승용
  *   요약 설명에 해당 단어가 없으면 그 상품은 차종 필터 대상에서 제외됩니다(항상 노출).
  *   상품 개수만큼 상세 API를 추가로 호출하므로, 상품이 많아지면 동기화 시간이 늘어납니다.
+ *
+ * ▶ 상세 API 장애 방어 (2026-08-14 추가)
+ *   아임웹 게이트웨이가 순간적으로 "upstream connect error..." 같은 비-JSON 응답을
+ *   200으로 내려주는 경우가 있습니다. 이때 fetchProductDetail이 예외를 던지면 전체
+ *   동기화가 죽으므로, 해당 상품 하나만 건너뛰고(차종 정보 없이) 계속 진행합니다.
  * ============================================================================
  */
 
@@ -106,15 +111,41 @@ async function fetchCategoryMap(accessToken) {
   return { codeToName, leafCodes };
 }
 
-async function fetchProductDetail(accessToken, prodNo) {
+// 상품 상세 조회 (요약설명/차종용). 실패해도 절대 예외를 던지지 않고 null을 반환합니다.
+// - HTTP 상태코드가 200이 아닌 경우
+// - statusCode 필드가 200이 아닌 경우
+// - 응답 바디가 JSON이 아닌 경우 (게이트웨이 장애로 "upstream connect error..." 같은 텍스트가 오는 경우)
+// - 네트워크 자체가 끊긴 경우
+// 위 네 가지 전부 여기서 흡수하고, 호출부(main)는 그냥 detail이 null인 걸로 처리합니다.
+async function fetchProductDetail(accessToken, prodNo, retries = 1) {
   const url = `https://openapi.imweb.me/products/${prodNo}?unitCode=${encodeURIComponent(UNIT_CODE)}`;
-  const res = await fetch(url, { headers: { Authorization: `Bearer ${accessToken}` } });
-  const json = await res.json();
-  if (!res.ok || json.statusCode !== 200) {
-    console.warn(`상품 ${prodNo} 상세 조회 실패, 차종 분류 건너뜀`);
-    return null;
+
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(url, { headers: { Authorization: `Bearer ${accessToken}` } });
+
+      let json;
+      try {
+        json = await res.json();
+      } catch (parseErr) {
+        // JSON이 아닌 응답(게이트웨이 장애 등). 텍스트 앞부분만 로그로 남기고 재시도/포기.
+        console.warn(`상품 ${prodNo} 상세 응답이 JSON이 아님 (attempt ${attempt + 1}/${retries + 1}): ${parseErr.message}`);
+        json = null;
+      }
+
+      if (json && res.ok && json.statusCode === 200) {
+        return json.data;
+      }
+
+      console.warn(`상품 ${prodNo} 상세 조회 실패 (attempt ${attempt + 1}/${retries + 1}), 차종 분류 건너뜀`);
+    } catch (networkErr) {
+      console.warn(`상품 ${prodNo} 상세 조회 중 네트워크 오류 (attempt ${attempt + 1}/${retries + 1}): ${networkErr.message}`);
+    }
+
+    if (attempt < retries) await sleep(500); // 재시도 전 잠깐 대기
   }
-  return json.data;
+
+  return null; // 재시도까지 다 실패하면 이 상품은 차종 정보 없이 계속 진행
 }
 
 function stripHtml(html) {
@@ -178,6 +209,8 @@ async function main() {
 
   console.log('상품별 요약설명(차종) 조회 중...');
   const products = [];
+  let detailFailCount = 0;
+
   for (const p of rawProducts) {
     const parsed = parseTitle(p.name);
     if (!parsed) continue; // 사이즈 파싱 실패 상품은 필터 데이터에서 제외
@@ -188,6 +221,7 @@ async function main() {
       .filter(Boolean);
 
     const detail = await fetchProductDetail(accessToken, p.prodNo);
+    if (!detail) detailFailCount++;
     const summaryText = detail ? stripHtml(detail.simpleContent) : '';
     const vehicle = detectVehicleTypes(summaryText);
 
@@ -206,6 +240,10 @@ async function main() {
     });
 
     await sleep(150); // 상세 API 호출 간 간단한 딜레이 (rate limit 대비)
+  }
+
+  if (detailFailCount > 0) {
+    console.warn(`상세 조회 실패한 상품 ${detailFailCount}개 (차종 정보 없이 저장됨, 동기화는 정상 완료)`);
   }
 
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(products, null, 2), 'utf-8');
