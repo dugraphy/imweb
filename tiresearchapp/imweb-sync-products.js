@@ -199,6 +199,14 @@ async function main() {
   const accessToken = tokenData.accessToken;
   console.log('토큰 갱신 완료. scope:', tokenData.scope);
 
+  // ⚠️ 새 리프레시 토큰은 여기서 즉시 저장합니다 (맨 끝이 아니라).
+  // refreshAccessToken이 성공하는 순간 아임웹 서버는 이미 옛 토큰을 폐기하므로,
+  // 이후 단계(카테고리/상품/상세 조회)에서 뭐가 실패해서 main()이 중간에 죽더라도
+  // 최소한 다음 실행은 이 새 토큰으로 정상 작동해야 합니다.
+  if (tokenData.refreshToken && tokenData.refreshToken !== REFRESH_TOKEN) {
+    await updateGithubSecret('IMWEB_REFRESH_TOKEN', tokenData.refreshToken);
+  }
+
   console.log('카테고리 조회 중...');
   const { codeToName, leafCodes } = await fetchCategoryMap(accessToken);
   console.log(`카테고리 ${codeToName.size}개 조회 완료 (브랜드 대상 리프 카테고리 ${leafCodes.size}개)`);
@@ -248,10 +256,6 @@ async function main() {
 
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(products, null, 2), 'utf-8');
   console.log(`저장 완료: ${OUTPUT_FILE} (${products.length}개 상품)`);
-
-  if (tokenData.refreshToken && tokenData.refreshToken !== REFRESH_TOKEN) {
-    await updateGithubSecret('IMWEB_REFRESH_TOKEN', tokenData.refreshToken);
-  }
 }
 
 main().catch(err => {
