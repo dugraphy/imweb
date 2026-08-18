@@ -10,17 +10,25 @@
  *   (선택) GH_PAT, GITHUB_REPOSITORY - 리프레시 토큰 자동 갱신용
  *
  * ▶ 카테고리 트리 규칙 (2026-08-18 변경)
- *   최상위 카테고리 이름으로 "타이어" / "엔진오일" 두 트리를 구분합니다.
- *     타이어(부모) > 한국타이어(자식, 브랜드) / 금호타이어(자식, 브랜드) ...
- *     엔진오일(부모) > 킥스(자식, 브랜드) / 모빌(자식, 브랜드) ...
+ *   최상위 카테고리 이름으로 "타이어" / "오일" 두 트리를 구분합니다.
+ *   "오일" 트리는 한 단계 더 들어가서 "엔진오일" / "브레이크오일"로 다시 나뉩니다.
+ *
+ *     타이어(최상위) > 한국타이어(브랜드, 리프) / 금호타이어(브랜드, 리프) ...
+ *     오일(최상위)   > 엔진오일(중간) > 킥스(브랜드, 리프) / 모빌(브랜드, 리프) ...
+ *                    > 브레이크오일(중간) > 펠릭스(브랜드, 리프) ...
+ *
  *   "자식이 없는(children이 빈 배열인) 카테고리"만 브랜드 필터 대상으로 취급하는 건
- *   기존과 동일합니다. 새 브랜드를 추가하실 땐 반드시 "타이어" 또는 "엔진오일" 밑에
- *   말단(리프) 카테고리로 만들어서 상품에 달아주세요. 이 최상위 이름 밖에 있는
- *   카테고리에 속한 상품은 타입을 판별할 수 없어 동기화 대상에서 제외됩니다.
+ *   기존과 동일합니다. 새 브랜드를 추가하실 땐 반드시 위 트리 구조를 그대로 지켜서
+ *   말단(리프) 카테고리로 만들어주세요. 이 구조 밖에 있는 카테고리에 속한 상품은
+ *   타입을 판별할 수 없어 동기화 대상에서 제외됩니다.
  *
  * ▶ 상품 타입별 필드
- *   - 타이어(category: "tire")   : width / profile / rim  (상품명에서 정규식으로 파싱)
- *   - 엔진오일(category: "oil")  : viscosity              (상품명에서 정규식으로 파싱)
+ *   - 타이어(category: "tire")
+ *       width / profile / rim   (상품명에서 정규식으로 파싱, 예: "245/50R20")
+ *   - 오일(category: "oil")
+ *       oilType: "engine-oil" | "brake-oil"  (소속된 중간 카테고리로 결정)
+ *       - 엔진오일: viscosity  (상품명에서 파싱, 예: "5W-30")
+ *       - 브레이크오일: dotGrade  (상품명에서 파싱, 예: "DOT4")
  *   상품명에서 해당 패턴을 찾지 못하면 그 상품은 필터 데이터에서 제외됩니다.
  *
  * ▶ 차종 / 연료타입 규칙
@@ -29,7 +37,7 @@
  *     - "전기차" 포함 → 전기차
  *     - "SUV" 또는 "RV" 포함 → RV/SUV
  *     - "승용" 포함 → 승용
- *   [연료타입 - 엔진오일 상품에 적용]
+ *   [연료타입 - 엔진오일 상품에만 적용, 브레이크오일에는 적용 안 함]
  *     - "가솔린" 포함 → 가솔린
  *     - "디젤" 포함 → 디젤
  *     - "LPG" 포함 → LPG
@@ -60,9 +68,17 @@ const OUTPUT_FILE = path.join(__dirname, 'products.json');
 // 아임웹 관리자에서 카테고리 이름을 이 값과 정확히 똑같이 만들어주세요.
 const TOP_CATEGORY_MAP = {
   '타이어': 'tire',
-  '엔진오일': 'oil'
+  '오일': 'oil'
 };
 
+// "오일" 최상위 밑, 두 번째 단계(중간) 카테고리 이름 ↔ 오일 세부 타입 매핑
+const OIL_MID_CATEGORY_MAP = {
+  '엔진오일': 'engine-oil',
+  '브레이크오일': 'brake-oil'
+};
+
+// 타이어/오일 모두 같은 위젯 페이지 안에서 탭으로 전환하는 구조라
+// href 경로는 대분류(category) 기준으로만 나눕니다.
 const SHOP_PATH_BY_TYPE = {
   tire: '/tirelist',
   oil: '/oillist'
@@ -110,7 +126,8 @@ async function fetchAllProducts(accessToken) {
   return all;
 }
 
-// 카테고리 트리를 codeToName 맵 + 리프 코드 집합 + (리프 코드 → 최상위 타입) 맵으로 평탄화
+// 카테고리 트리를 codeToName 맵 + 리프 코드 집합 +
+// (리프 코드 → 최상위 타입) 맵 + (리프 코드 → 오일 세부 타입) 맵으로 평탄화
 async function fetchCategoryMap(accessToken) {
   const url = `https://openapi.imweb.me/products/shop-categories?unitCode=${encodeURIComponent(UNIT_CODE)}`;
   const res = await fetch(url, { headers: { Authorization: `Bearer ${accessToken}` } });
@@ -119,27 +136,36 @@ async function fetchCategoryMap(accessToken) {
 
   const codeToName = new Map();
   const leafCodes = new Set();
-  const leafCodeToType = new Map(); // leafCode -> 'tire' | 'oil' (TOP_CATEGORY_MAP에 없는 최상위는 매핑되지 않음)
+  const leafCodeToType = new Map();     // leafCode -> 'tire' | 'oil'
+  const leafCodeToOilType = new Map();  // leafCode -> 'engine-oil' | 'brake-oil' (오일일 때만)
 
-  function walk(nodes, topType) {
+  function walk(nodes, pathNames) {
     (nodes || []).forEach(node => {
       codeToName.set(node.categoryCode, node.name);
-
-      // 최상위(depth 0) 노드를 만날 때만 topType을 새로 결정하고,
-      // 그 아래 자손들에게는 동일한 topType을 계속 물려줍니다.
-      const currentTopType = topType !== undefined ? topType : (TOP_CATEGORY_MAP[node.name] || null);
+      const newPath = pathNames.concat(node.name);
 
       if (!node.children || node.children.length === 0) {
         leafCodes.add(node.categoryCode);
-        if (currentTopType) leafCodeToType.set(node.categoryCode, currentTopType);
+
+        const topName = newPath[0];
+        const type = TOP_CATEGORY_MAP[topName] || null;
+        if (type) {
+          leafCodeToType.set(node.categoryCode, type);
+
+          if (type === 'oil' && newPath.length >= 2) {
+            const midName = newPath[1];
+            const oilType = OIL_MID_CATEGORY_MAP[midName] || null;
+            if (oilType) leafCodeToOilType.set(node.categoryCode, oilType);
+          }
+        }
       } else {
-        walk(node.children, currentTopType);
+        walk(node.children, newPath);
       }
     });
   }
-  walk(json.data, undefined);
+  walk(json.data, []);
 
-  return { codeToName, leafCodes, leafCodeToType };
+  return { codeToName, leafCodes, leafCodeToType, leafCodeToOilType };
 }
 
 // 상품 상세 조회 (요약설명/차종/연료용). 실패해도 절대 예외를 던지지 않고 null을 반환합니다.
@@ -186,7 +212,7 @@ function detectVehicleTypes(summaryText) {
 }
 
 // 연료타입은 (다중 선택이 아니라) 상품 하나당 보통 하나이므로 첫 매치만 사용합니다.
-// 상세 요약설명에 문구가 없으면 빈 문자열을 반환하고, 프론트 필터에서는 "전체 노출" 취급됩니다.
+// 엔진오일 상품에만 사용하며, 브레이크오일에는 적용하지 않습니다.
 function detectFuelType(summaryText) {
   if (/가솔린/.test(summaryText)) return '가솔린';
   if (/디젤/.test(summaryText)) return '디젤';
@@ -203,12 +229,20 @@ function parseTireSize(title) {
   return { width: +m[1], profile: +m[2], rim: +m[3] };
 }
 
-// 오일 점도등급 파싱: "킥스 KIXX GX5 5W-30" → "5W-30"
+// 엔진오일 점도등급 파싱: "킥스 KIXX GX5 5W-30" → "5W-30"
 // 공백/하이픈 표기가 섞여 있어도("5W30", "5W 30") "5W-30" 형태로 정규화합니다.
 function parseViscosity(title) {
   const m = String(title || '').match(/(\d{1,2})\s*W\s*-?\s*(\d{2})/i);
   if (!m) return null;
   return `${m[1]}W-${m[2]}`;
+}
+
+// 브레이크오일 DOT등급 파싱: "펠릭스 FELIX DOT4 브레이크 오일" → "DOT4"
+// "DOT 4", "dot4", "DOT5.1" 처럼 표기가 섞여도 "DOT4" / "DOT5.1" 형태로 정규화합니다.
+function parseDotGrade(title) {
+  const m = String(title || '').match(/DOT\s*([0-9]+(?:\.[0-9]+)?)/i);
+  if (!m) return null;
+  return `DOT${m[1]}`;
 }
 
 async function updateGithubSecret(name, value) {
@@ -258,7 +292,7 @@ async function main() {
   }
 
   console.log('카테고리 조회 중...');
-  const { codeToName, leafCodes, leafCodeToType } = await fetchCategoryMap(accessToken);
+  const { codeToName, leafCodes, leafCodeToType, leafCodeToOilType } = await fetchCategoryMap(accessToken);
   console.log(`카테고리 ${codeToName.size}개 조회 완료 (브랜드 대상 리프 카테고리 ${leafCodes.size}개)`);
 
   console.log('전체 상품 조회 중...');
@@ -269,20 +303,34 @@ async function main() {
   const products = [];
   let detailFailCount = 0;
   let skippedNoType = 0;
+  let skippedNoOilType = 0;
   let skippedNoPattern = 0;
 
   for (const p of rawProducts) {
     const productLeafCodes = (p.categories || []).filter(code => leafCodes.has(code));
 
-    // 이 상품이 속한 리프 카테고리들 중, 타입(tire/oil)이 매핑된 것을 찾음
+    // 이 상품이 속한 리프 카테고리들 중, 최상위 타입(tire/oil)이 매핑된 것을 찾음
     const productType = productLeafCodes
       .map(code => leafCodeToType.get(code))
       .find(Boolean);
 
     if (!productType) {
-      // "타이어" 또는 "엔진오일" 최상위 카테고리 밑에 속하지 않은 상품은 판별 불가 → 제외
+      // "타이어" 또는 "오일" 최상위 카테고리 밑에 속하지 않은 상품은 판별 불가 → 제외
       skippedNoType++;
       continue;
+    }
+
+    let oilType = null;
+    if (productType === 'oil') {
+      oilType = productLeafCodes
+        .map(code => leafCodeToOilType.get(code))
+        .find(Boolean);
+
+      if (!oilType) {
+        // "오일" 밑이긴 한데 "엔진오일"/"브레이크오일" 중간 카테고리에 속하지 않은 경우 → 제외
+        skippedNoOilType++;
+        continue;
+      }
     }
 
     const brands = productLeafCodes
@@ -294,23 +342,32 @@ async function main() {
       const parsed = parseTireSize(p.name);
       if (!parsed) { skippedNoPattern++; continue; }
       sizeFields = { width: parsed.width, profile: parsed.profile, rim: parsed.rim };
-    } else if (productType === 'oil') {
+    } else if (oilType === 'engine-oil') {
       const viscosity = parseViscosity(p.name);
       if (!viscosity) { skippedNoPattern++; continue; }
       sizeFields = { viscosity };
+    } else if (oilType === 'brake-oil') {
+      const dotGrade = parseDotGrade(p.name);
+      if (!dotGrade) { skippedNoPattern++; continue; }
+      sizeFields = { dotGrade };
     }
 
     const detail = await fetchProductDetail(accessToken, p.prodNo);
     if (!detail) detailFailCount++;
     const summaryText = detail ? stripHtml(detail.simpleContent) : '';
 
-    const extraFields = productType === 'tire'
-      ? { vehicle: detectVehicleTypes(summaryText) }
-      : { fuelType: detectFuelType(summaryText) };
+    let extraFields = {};
+    if (productType === 'tire') {
+      extraFields = { vehicle: detectVehicleTypes(summaryText) };
+    } else if (oilType === 'engine-oil') {
+      extraFields = { fuelType: detectFuelType(summaryText) };
+    }
+    // 브레이크오일은 연료타입 필드를 붙이지 않습니다.
 
     products.push({
       idx: p.prodNo,
-      category: productType, // 'tire' | 'oil'
+      category: productType,               // 'tire' | 'oil'
+      ...(oilType ? { oilType } : {}),      // 'engine-oil' | 'brake-oil' (오일일 때만)
       name: p.name,
       price: p.price,
       oldPrice: p.priceOrg,
@@ -328,10 +385,13 @@ async function main() {
     console.warn(`상세 조회 실패한 상품 ${detailFailCount}개 (차종/연료 정보 없이 저장됨, 동기화는 정상 완료)`);
   }
   if (skippedNoType > 0) {
-    console.warn(`"타이어"/"엔진오일" 최상위 카테고리에 속하지 않아 제외된 상품 ${skippedNoType}개`);
+    console.warn(`"타이어"/"오일" 최상위 카테고리에 속하지 않아 제외된 상품 ${skippedNoType}개`);
+  }
+  if (skippedNoOilType > 0) {
+    console.warn(`"오일" 밑이지만 "엔진오일"/"브레이크오일"에 속하지 않아 제외된 상품 ${skippedNoOilType}개`);
   }
   if (skippedNoPattern > 0) {
-    console.warn(`이름에서 규격/점도를 파싱하지 못해 제외된 상품 ${skippedNoPattern}개`);
+    console.warn(`이름에서 규격/점도/DOT등급을 파싱하지 못해 제외된 상품 ${skippedNoPattern}개`);
   }
 
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(products, null, 2), 'utf-8');
