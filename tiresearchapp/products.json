@@ -1,5 +1,50 @@
 [
   {
+    "idx": 60,
+    "category": "oil",
+    "oilType": "engine-oil",
+    "name": "라핀 RAFFINE PROGRESS 5W30",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/70ac91c214b35.jpg",
+    "href": "/oillist?idx=60",
+    "brands": [
+      "RAFFINE"
+    ],
+    "viscosity": "5W-30",
+    "fuelType": ""
+  },
+  {
+    "idx": 59,
+    "category": "oil",
+    "oilType": "engine-oil",
+    "name": "킥스 KIXX GX5 5W-30",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/240fb4c5b68b2.jpg",
+    "href": "/oillist?idx=59",
+    "brands": [
+      "KIXX"
+    ],
+    "viscosity": "5W-30",
+    "fuelType": ""
+  },
+  {
+    "idx": 58,
+    "category": "oil",
+    "oilType": "engine-oil",
+    "name": "킥스 KIXX GX7 Diesel 5W-30",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/db848a801467b.jpg",
+    "href": "/oillist?idx=58",
+    "brands": [
+      "KIXX"
+    ],
+    "viscosity": "5W-30",
+    "fuelType": ""
+  },
+  {
     "idx": 57,
     "category": "tire",
     "name": "245/50R20 크로스콘택 LX 스포츠",
@@ -70,6 +115,21 @@
     "vehicle": [
       "승용"
     ]
+  },
+  {
+    "idx": 53,
+    "category": "oil",
+    "oilType": "engine-oil",
+    "name": "에쓰오일 S-OIL 7 EV 하이브리드 0W-20",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/c38f07d1823e2.png",
+    "href": "/oillist?idx=53",
+    "brands": [
+      "S-OIL"
+    ],
+    "viscosity": "0W-20",
+    "fuelType": ""
   },
   {
     "idx": 51,
@@ -165,6 +225,21 @@
     ]
   },
   {
+    "idx": 46,
+    "category": "oil",
+    "oilType": "engine-oil",
+    "name": "라핀 RAFFINE PROGRESS 0W20",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/4cbc8d840fa73.jpg",
+    "href": "/oillist?idx=46",
+    "brands": [
+      "RAFFINE"
+    ],
+    "viscosity": "0W-20",
+    "fuelType": ""
+  },
+  {
     "idx": 44,
     "category": "tire",
     "name": "225/55R19 블루어스 포에스 AW21",
@@ -235,6 +310,35 @@
     "vehicle": [
       "승용"
     ]
+  },
+  {
+    "idx": 40,
+    "category": "oil",
+    "oilType": "engine-oil",
+    "name": "그랜빌 GRANVILLE HYPALUBE EVO 5W30",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/9ce9abecfd4d3.jpg",
+    "href": "/oillist?idx=40",
+    "brands": [
+      "GRANVILLE"
+    ],
+    "viscosity": "5W-30",
+    "fuelType": ""
+  },
+  {
+    "idx": 38,
+    "category": "oil",
+    "oilType": "brake-oil",
+    "name": "펠릭스 FELIX DOT4 브레이크 오일",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/582f427ad18b7.jpg",
+    "href": "/oillist?idx=38",
+    "brands": [
+      "FELIX"
+    ],
+    "dotGrade": "DOT4"
   },
   {
     "idx": 36,
@@ -343,6 +447,21 @@
     "vehicle": [
       "승용"
     ]
+  },
+  {
+    "idx": 30,
+    "category": "oil",
+    "oilType": "engine-oil",
+    "name": "코프란 COFRAN SINTOLUX 5W-30",
+    "price": 45000000,
+    "oldPrice": 48000000,
+    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/8fc731b1efa05.jpg",
+    "href": "/oillist?idx=30",
+    "brands": [
+      "COFRAN"
+    ],
+    "viscosity": "5W-30",
+    "fuelType": ""
   },
   {
     "idx": 28,
