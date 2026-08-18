@@ -179,7 +179,14 @@ async function updateGithubSecret(name, value) {
   const keyRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/actions/secrets/public-key`, {
     headers: { Authorization: `Bearer ${GH_PAT}`, Accept: 'application/vnd.github+json' }
   });
+  if (!keyRes.ok) {
+    const bodyText = await keyRes.text();
+    throw new Error(`공개키 조회 실패 (${keyRes.status}): ${bodyText}`);
+  }
   const keyData = await keyRes.json();
+  if (!keyData || !keyData.key) {
+    throw new Error('공개키 응답에 key 필드가 없습니다: ' + JSON.stringify(keyData));
+  }
   const binKey = sodium.from_base64(keyData.key, sodium.base64_variants.ORIGINAL);
   const binVal = sodium.from_string(value);
   const encBytes = sodium.crypto_box_seal(binVal, binKey);
@@ -199,12 +206,18 @@ async function main() {
   const accessToken = tokenData.accessToken;
   console.log('토큰 갱신 완료. scope:', tokenData.scope);
 
-  // ⚠️ 새 리프레시 토큰은 여기서 즉시 저장합니다 (맨 끝이 아니라).
+  // ⚠️ 새 리프레시 토큰은 여기서 즉시 저장을 "시도"합니다 (맨 끝이 아니라).
   // refreshAccessToken이 성공하는 순간 아임웹 서버는 이미 옛 토큰을 폐기하므로,
   // 이후 단계(카테고리/상품/상세 조회)에서 뭐가 실패해서 main()이 중간에 죽더라도
   // 최소한 다음 실행은 이 새 토큰으로 정상 작동해야 합니다.
+  // 단, 이 저장 자체가 실패하더라도(GitHub API 오류 등) 상품 동기화는 반드시 계속 진행합니다 —
+  // 리프레시 토큰 저장 실패가 products.json 갱신까지 막아버리면 안 되기 때문입니다.
   if (tokenData.refreshToken && tokenData.refreshToken !== REFRESH_TOKEN) {
-    await updateGithubSecret('IMWEB_REFRESH_TOKEN', tokenData.refreshToken);
+    try {
+      await updateGithubSecret('IMWEB_REFRESH_TOKEN', tokenData.refreshToken);
+    } catch (secretErr) {
+      console.error('리프레시 토큰 자동 저장 실패 (상품 동기화는 계속 진행합니다):', secretErr.message);
+    }
   }
 
   console.log('카테고리 조회 중...');
