@@ -1,23 +1,5 @@
 [
   {
-    "idx": 58,
-    "name": "255/40R21 올시즌콘택2 ASC2",
-    "price": 45000000,
-    "oldPrice": 48000000,
-    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/80eef5f2f3b29.jpg",
-    "href": "/tirelist?idx=58",
-    "width": 255,
-    "profile": 40,
-    "rim": 21,
-    "brands": [
-      "콘티넨탈"
-    ],
-    "vehicle": [
-      "전기차",
-      "승용"
-    ]
-  },
-  {
     "idx": 57,
     "name": "245/50R20 크로스콘택 LX 스포츠",
     "price": 45000000,
