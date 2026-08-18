@@ -1,23 +1,5 @@
 [
   {
-    "idx": 59,
-    "name": "275/35R20 올시즌콘택2 ASC2",
-    "price": 45000000,
-    "oldPrice": 48000000,
-    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/12b68c167429f.jpg",
-    "href": "/tirelist?idx=59",
-    "width": 275,
-    "profile": 35,
-    "rim": 20,
-    "brands": [
-      "엔진오일"
-    ],
-    "vehicle": [
-      "전기차",
-      "승용"
-    ]
-  },
-  {
     "idx": 58,
     "name": "255/40R21 올시즌콘택2 ASC2",
     "price": 45000000,
