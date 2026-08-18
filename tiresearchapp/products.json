@@ -72,42 +72,6 @@
     ]
   },
   {
-    "idx": 53,
-    "category": "tire",
-    "name": "245/40R19 뉴 피제로 P zero",
-    "price": 45000000,
-    "oldPrice": 48000000,
-    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/86f119a83ad4e.jpg",
-    "href": "/tirelist?idx=53",
-    "brands": [
-      "피렐리"
-    ],
-    "width": 245,
-    "profile": 40,
-    "rim": 19,
-    "vehicle": [
-      "승용"
-    ]
-  },
-  {
-    "idx": 52,
-    "category": "tire",
-    "name": "245/45R18 뉴 피제로 P zero",
-    "price": 45000000,
-    "oldPrice": 48000000,
-    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/16b99fd78aa7d.jpg",
-    "href": "/tirelist?idx=52",
-    "brands": [
-      "피렐리"
-    ],
-    "width": 245,
-    "profile": 45,
-    "rim": 18,
-    "vehicle": [
-      "승용"
-    ]
-  },
-  {
     "idx": 51,
     "category": "tire",
     "name": "255/50R19 스콜피온 베르디 올시즌 SVAS",
@@ -201,42 +165,6 @@
     ]
   },
   {
-    "idx": 46,
-    "category": "tire",
-    "name": "235/55R17 블루어스 포에스 AW21",
-    "price": 45000000,
-    "oldPrice": 48000000,
-    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/632550773930b.jpg",
-    "href": "/tirelist?idx=46",
-    "brands": [
-      "요코하마"
-    ],
-    "width": 235,
-    "profile": 55,
-    "rim": 17,
-    "vehicle": [
-      "승용"
-    ]
-  },
-  {
-    "idx": 45,
-    "category": "tire",
-    "name": "245/45R18 블루어스 포에스 AW21",
-    "price": 45000000,
-    "oldPrice": 48000000,
-    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/b647c6bb0822d.jpg",
-    "href": "/tirelist?idx=45",
-    "brands": [
-      "요코하마"
-    ],
-    "width": 245,
-    "profile": 45,
-    "rim": 18,
-    "vehicle": [
-      "승용"
-    ]
-  },
-  {
     "idx": 44,
     "category": "tire",
     "name": "225/55R19 블루어스 포에스 AW21",
@@ -309,78 +237,6 @@
     ]
   },
   {
-    "idx": 40,
-    "category": "tire",
-    "name": "195/60R15 엔프리즈 AH8",
-    "price": 45000000,
-    "oldPrice": 48000000,
-    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/36a3016a21e96.jpg",
-    "href": "/tirelist?idx=40",
-    "brands": [
-      "넥센타이어"
-    ],
-    "width": 195,
-    "profile": 60,
-    "rim": 15,
-    "vehicle": [
-      "승용"
-    ]
-  },
-  {
-    "idx": 39,
-    "category": "tire",
-    "name": "195/50R16 엔프리즈 AH8",
-    "price": 45000000,
-    "oldPrice": 48000000,
-    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/ecdcdf82d4707.jpg",
-    "href": "/tirelist?idx=39",
-    "brands": [
-      "넥센타이어"
-    ],
-    "width": 195,
-    "profile": 50,
-    "rim": 16,
-    "vehicle": [
-      "승용"
-    ]
-  },
-  {
-    "idx": 38,
-    "category": "tire",
-    "name": "175/65R14 엔프리즈 S (전기차겸용)",
-    "price": 45000000,
-    "oldPrice": 48000000,
-    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/f10cbc0bc23a3.jpg",
-    "href": "/tirelist?idx=38",
-    "brands": [
-      "넥센타이어"
-    ],
-    "width": 175,
-    "profile": 65,
-    "rim": 14,
-    "vehicle": [
-      "승용"
-    ]
-  },
-  {
-    "idx": 37,
-    "category": "tire",
-    "name": "165/60R14 엔프리즈 S (전기차겸용)",
-    "price": 45000000,
-    "oldPrice": 48000000,
-    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/1064fd8656fab.jpg",
-    "href": "/tirelist?idx=37",
-    "brands": [
-      "넥센타이어"
-    ],
-    "width": 165,
-    "profile": 60,
-    "rim": 14,
-    "vehicle": [
-      "승용"
-    ]
-  },
-  {
     "idx": 36,
     "category": "tire",
     "name": "185/65R14 엔프리즈 S (전기차겸용)",
@@ -389,7 +245,7 @@
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/a57dc45f98fd4.jpg",
     "href": "/tirelist?idx=36",
     "brands": [
-      "넥센타이어"
+      "제너럴타이어"
     ],
     "width": 185,
     "profile": 65,
@@ -407,7 +263,7 @@
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/33324bf9a3127.jpg",
     "href": "/tirelist?idx=35",
     "brands": [
-      "넥센타이어"
+      "제너럴타이어"
     ],
     "width": 205,
     "profile": 70,
@@ -489,42 +345,6 @@
     ]
   },
   {
-    "idx": 30,
-    "category": "tire",
-    "name": "185/65R14 IQ 시리즈 1",
-    "price": 45000000,
-    "oldPrice": 48000000,
-    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/2118bd6ec780d.jpg",
-    "href": "/tirelist?idx=30",
-    "brands": [
-      "넥센타이어"
-    ],
-    "width": 185,
-    "profile": 65,
-    "rim": 14,
-    "vehicle": [
-      "승용"
-    ]
-  },
-  {
-    "idx": 29,
-    "category": "tire",
-    "name": "185/60R14 IQ 시리즈 1",
-    "price": 45000000,
-    "oldPrice": 48000000,
-    "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/ef87c1a06bbf1.jpg",
-    "href": "/tirelist?idx=29",
-    "brands": [
-      "넥센타이어"
-    ],
-    "width": 185,
-    "profile": 60,
-    "rim": 14,
-    "vehicle": [
-      "승용"
-    ]
-  },
-  {
     "idx": 28,
     "category": "tire",
     "name": "245/45R18 프라이머시 투어 A/S",
@@ -533,7 +353,7 @@
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/8e8f7369f80fe.jpg",
     "href": "/tirelist?idx=28",
     "brands": [
-      "미쉐린"
+      "제너럴타이어"
     ],
     "width": 245,
     "profile": 45,
@@ -551,7 +371,7 @@
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/524789b92e10e.jpg",
     "href": "/tirelist?idx=27",
     "brands": [
-      "미쉐린"
+      "제너럴타이어"
     ],
     "width": 235,
     "profile": 55,
@@ -569,7 +389,7 @@
     "img": "https://cdn.imweb.me/upload/S20260616cc38d62b17024/d234289998d1a.jpg",
     "href": "/tirelist?idx=26",
     "brands": [
-      "미쉐린"
+      "제너럴타이어"
     ],
     "width": 245,
     "profile": 50,
