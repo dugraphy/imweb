@@ -427,11 +427,11 @@
     "width": 165,
     "profile": 60,
     "rim": 15,
-    "recommended": false,
+    "recommended": true,
     "vehicle": [
       "승용"
     ],
-    "season": ""
+    "season": "올시즌"
   },
   {
     "idx": 33,
