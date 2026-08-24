@@ -12,6 +12,7 @@
       "RAFFINE"
     ],
     "viscosity": "5W-30",
+    "recommended": false,
     "fuelType": ""
   },
   {
@@ -27,6 +28,7 @@
       "KIXX"
     ],
     "viscosity": "5W-30",
+    "recommended": false,
     "fuelType": ""
   },
   {
@@ -42,6 +44,7 @@
       "KIXX"
     ],
     "viscosity": "5W-30",
+    "recommended": false,
     "fuelType": ""
   },
   {
@@ -58,6 +61,7 @@
     "width": 245,
     "profile": 50,
     "rim": 20,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -77,6 +81,7 @@
     "width": 245,
     "profile": 40,
     "rim": 19,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -96,6 +101,7 @@
     "width": 255,
     "profile": 45,
     "rim": 20,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -115,6 +121,7 @@
     "width": 255,
     "profile": 45,
     "rim": 18,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -133,6 +140,7 @@
       "S-OIL"
     ],
     "viscosity": "0W-20",
+    "recommended": false,
     "fuelType": ""
   },
   {
@@ -149,6 +157,7 @@
     "width": 255,
     "profile": 50,
     "rim": 19,
+    "recommended": false,
     "vehicle": [
       "RV/SUV",
       "승용"
@@ -169,6 +178,7 @@
     "width": 235,
     "profile": 55,
     "rim": 20,
+    "recommended": false,
     "vehicle": [
       "RV/SUV",
       "승용"
@@ -189,6 +199,7 @@
     "width": 265,
     "profile": 45,
     "rim": 20,
+    "recommended": false,
     "vehicle": [
       "RV/SUV",
       "승용"
@@ -209,6 +220,7 @@
     "width": 205,
     "profile": 55,
     "rim": 17,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -228,6 +240,7 @@
     "width": 225,
     "profile": 45,
     "rim": 18,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -246,6 +259,7 @@
       "RAFFINE"
     ],
     "viscosity": "0W-20",
+    "recommended": false,
     "fuelType": ""
   },
   {
@@ -262,6 +276,7 @@
     "width": 225,
     "profile": 55,
     "rim": 19,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -281,6 +296,7 @@
     "width": 265,
     "profile": 65,
     "rim": 17,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -300,6 +316,7 @@
     "width": 265,
     "profile": 60,
     "rim": 18,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -319,6 +336,7 @@
     "width": 265,
     "profile": 50,
     "rim": 20,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -337,6 +355,7 @@
       "GRANVILLE"
     ],
     "viscosity": "5W-30",
+    "recommended": false,
     "fuelType": ""
   },
   {
@@ -351,7 +370,8 @@
     "brands": [
       "FELIX"
     ],
-    "dotGrade": "DOT4"
+    "dotGrade": "DOT4",
+    "recommended": false
   },
   {
     "idx": 36,
@@ -367,6 +387,7 @@
     "width": 185,
     "profile": 65,
     "rim": 14,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -386,6 +407,7 @@
     "width": 205,
     "profile": 70,
     "rim": 15,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -405,6 +427,7 @@
     "width": 165,
     "profile": 60,
     "rim": 15,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -424,6 +447,7 @@
     "width": 165,
     "profile": 65,
     "rim": 14,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -443,6 +467,7 @@
     "width": 175,
     "profile": 65,
     "rim": 14,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -462,6 +487,7 @@
     "width": 165,
     "profile": 60,
     "rim": 14,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -480,6 +506,7 @@
       "COFRAN"
     ],
     "viscosity": "5W-30",
+    "recommended": false,
     "fuelType": ""
   },
   {
@@ -496,6 +523,7 @@
     "width": 245,
     "profile": 45,
     "rim": 18,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -515,6 +543,7 @@
     "width": 235,
     "profile": 55,
     "rim": 19,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -534,6 +563,7 @@
     "width": 245,
     "profile": 50,
     "rim": 18,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -553,6 +583,7 @@
     "width": 245,
     "profile": 50,
     "rim": 20,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -572,6 +603,7 @@
     "width": 275,
     "profile": 35,
     "rim": 19,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -591,6 +623,7 @@
     "width": 245,
     "profile": 45,
     "rim": 19,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -610,6 +643,7 @@
     "width": 275,
     "profile": 40,
     "rim": 19,
+    "recommended": false,
     "vehicle": [],
     "season": "올시즌"
   },
@@ -627,6 +661,7 @@
     "width": 165,
     "profile": 60,
     "rim": 15,
+    "recommended": false,
     "vehicle": [
       "승용"
     ],
@@ -646,6 +681,7 @@
     "width": 165,
     "profile": 60,
     "rim": 14,
+    "recommended": false,
     "vehicle": [],
     "season": ""
   },
@@ -663,6 +699,7 @@
     "width": 165,
     "profile": 60,
     "rim": 15,
+    "recommended": false,
     "vehicle": [],
     "season": ""
   },
@@ -680,6 +717,7 @@
     "width": 195,
     "profile": 70,
     "rim": 14,
+    "recommended": false,
     "vehicle": [],
     "season": ""
   },
@@ -697,6 +735,7 @@
     "width": 175,
     "profile": 60,
     "rim": 13,
+    "recommended": false,
     "vehicle": [],
     "season": ""
   },
@@ -714,6 +753,7 @@
     "width": 165,
     "profile": 65,
     "rim": 14,
+    "recommended": false,
     "vehicle": [],
     "season": ""
   },
@@ -731,6 +771,7 @@
     "width": 245,
     "profile": 50,
     "rim": 20,
+    "recommended": false,
     "vehicle": [],
     "season": ""
   },
@@ -748,6 +789,7 @@
     "width": 215,
     "profile": 50,
     "rim": 17,
+    "recommended": false,
     "vehicle": [],
     "season": ""
   },
@@ -765,6 +807,7 @@
     "width": 225,
     "profile": 55,
     "rim": 17,
+    "recommended": false,
     "vehicle": [],
     "season": ""
   },
@@ -782,6 +825,7 @@
     "width": 235,
     "profile": 60,
     "rim": 17,
+    "recommended": false,
     "vehicle": [],
     "season": ""
   },
@@ -799,6 +843,7 @@
     "width": 235,
     "profile": 55,
     "rim": 18,
+    "recommended": false,
     "vehicle": [
       "RV/SUV"
     ],
@@ -818,6 +863,7 @@
     "width": 185,
     "profile": 65,
     "rim": 14,
+    "recommended": false,
     "vehicle": [],
     "season": ""
   }
