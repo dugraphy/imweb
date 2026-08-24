@@ -31,6 +31,13 @@
  *       - 브레이크오일: dotGrade  (상품명에서 파싱, 예: "DOT4")
  *   상품명에서 해당 패턴을 찾지 못하면 그 상품은 필터 데이터에서 제외됩니다.
  *
+ * ▶ 추천상품 규칙 (2026-08-24 추가)
+ *   상품 타입(타이어/오일) 상관없이 모든 상품에 적용됩니다.
+ *   요약 설명에 "추천" 글자가 포함되어 있으면 recommended: true, 없으면 false.
+ *   관리자가 요약설명에 "#추천" 해시태그만 넣었다 뺐다 하면 "추천순" 정렬 노출을
+ *   자유롭게 컨트롤할 수 있습니다. 위젯에서는 recommended:true인 상품을 먼저,
+ *   그 다음 나머지를 원래 순서 그대로 보여주는 식으로 사용합니다.
+ *
  * ▶ 차종 / 연료타입 / 시즌 규칙
  *   상품 상세 API의 simpleContent(요약 설명) 텍스트에서 키워드를 찾아 자동 분류합니다.
  *   [차종 - 타이어 상품에 적용]
@@ -228,6 +235,11 @@ function detectSeason(summaryText) {
   return '';
 }
 
+// 상품 타입 상관없이 공통으로 적용. 요약설명에 "추천"(예: "#추천") 글자가 있으면 true.
+function detectRecommended(summaryText) {
+  return /추천/.test(summaryText);
+}
+
 // 연료타입은 (다중 선택이 아니라) 상품 하나당 보통 하나이므로 첫 매치만 사용합니다.
 // 엔진오일 상품에만 사용하며, 브레이크오일에는 적용하지 않습니다.
 function detectFuelType(summaryText) {
@@ -373,16 +385,15 @@ async function main() {
     if (!detail) detailFailCount++;
     const summaryText = detail ? stripHtml(detail.simpleContent) : '';
 
-    let extraFields = {};
+    // recommended는 타입 상관없이 모든 상품에 공통으로 붙습니다.
+    let extraFields = { recommended: detectRecommended(summaryText) };
     if (productType === 'tire') {
-      extraFields = {
-        vehicle: detectVehicleTypes(summaryText),
-        season: detectSeason(summaryText)
-      };
+      extraFields.vehicle = detectVehicleTypes(summaryText);
+      extraFields.season = detectSeason(summaryText);
     } else if (oilType === 'engine-oil') {
-      extraFields = { fuelType: detectFuelType(summaryText) };
+      extraFields.fuelType = detectFuelType(summaryText);
     }
-    // 브레이크오일은 연료타입/시즌 필드를 붙이지 않습니다.
+    // 브레이크오일은 연료타입/시즌 필드를 붙이지 않지만, recommended는 붙습니다.
 
     products.push({
       idx: p.prodNo,
