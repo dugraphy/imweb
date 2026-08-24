@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * 아임웹 Open API(v3, OAuth2)로 전체 상품 + 카테고리(브랜드) + 요약설명(차종/연료)을
+ * 아임웹 Open API(v3, OAuth2)로 전체 상품 + 카테고리(브랜드) + 요약설명(차종/연료/시즌)을
  * 긁어와 products.json 파일로 저장
  * ============================================================================
  * Node.js 환경(GitHub Actions 등)에서 주기적으로 실행하는 스크립트입니다.
@@ -31,12 +31,20 @@
  *       - 브레이크오일: dotGrade  (상품명에서 파싱, 예: "DOT4")
  *   상품명에서 해당 패턴을 찾지 못하면 그 상품은 필터 데이터에서 제외됩니다.
  *
- * ▶ 차종 / 연료타입 규칙
+ * ▶ 차종 / 연료타입 / 시즌 규칙
  *   상품 상세 API의 simpleContent(요약 설명) 텍스트에서 키워드를 찾아 자동 분류합니다.
  *   [차종 - 타이어 상품에 적용]
  *     - "전기차" 포함 → 전기차
  *     - "SUV" 또는 "RV" 포함 → RV/SUV
  *     - "승용" 포함 → 승용
+ *   [시즌 - 타이어 상품에만 적용] (2026-08-24 추가)
+ *     - "올시즌" 포함 → 올시즌
+ *     - "윈터" 또는 "겨울용" 포함 → 윈터
+ *     - "썸머" 또는 "여름용" 포함 → 썸머
+ *     여러 개가 동시에 감지되면 먼저 매치되는 것 하나만 사용합니다(상품당 시즌 1개 가정).
+ *     아무 키워드도 없으면 season은 빈 문자열('')이 되고, 이 상품은 시즌 필터로
+ *     걸러지지 않고 항상 노출됩니다. 요약설명에 "#올시즌" 처럼 해시태그로 적어주셔도
+ *     정규식이 "올시즌"이라는 글자만 보기 때문에 정상 인식됩니다.
  *   [연료타입 - 엔진오일 상품에만 적용, 브레이크오일에는 적용 안 함]
  *     - "가솔린" 포함 → 가솔린
  *     - "디젤" 포함 → 디젤
@@ -47,7 +55,7 @@
  * ▶ 상세 API 장애 방어 (2026-08-14 추가)
  *   아임웹 게이트웨이가 순간적으로 "upstream connect error..." 같은 비-JSON 응답을
  *   200으로 내려주는 경우가 있습니다. 이때 fetchProductDetail이 예외를 던지면 전체
- *   동기화가 죽으므로, 해당 상품 하나만 건너뛰고(차종/연료 정보 없이) 계속 진행합니다.
+ *   동기화가 죽으므로, 해당 상품 하나만 건너뛰고(차종/연료/시즌 정보 없이) 계속 진행합니다.
  * ============================================================================
  */
 
@@ -168,7 +176,7 @@ async function fetchCategoryMap(accessToken) {
   return { codeToName, leafCodes, leafCodeToType, leafCodeToOilType };
 }
 
-// 상품 상세 조회 (요약설명/차종/연료용). 실패해도 절대 예외를 던지지 않고 null을 반환합니다.
+// 상품 상세 조회 (요약설명/차종/연료/시즌용). 실패해도 절대 예외를 던지지 않고 null을 반환합니다.
 async function fetchProductDetail(accessToken, prodNo, retries = 1) {
   const url = `https://openapi.imweb.me/products/${prodNo}?unitCode=${encodeURIComponent(UNIT_CODE)}`;
 
@@ -188,7 +196,7 @@ async function fetchProductDetail(accessToken, prodNo, retries = 1) {
         return json.data;
       }
 
-      console.warn(`상품 ${prodNo} 상세 조회 실패 (attempt ${attempt + 1}/${retries + 1}), 차종/연료 분류 건너뜀`);
+      console.warn(`상품 ${prodNo} 상세 조회 실패 (attempt ${attempt + 1}/${retries + 1}), 차종/연료/시즌 분류 건너뜀`);
     } catch (networkErr) {
       console.warn(`상품 ${prodNo} 상세 조회 중 네트워크 오류 (attempt ${attempt + 1}/${retries + 1}): ${networkErr.message}`);
     }
@@ -209,6 +217,15 @@ function detectVehicleTypes(summaryText) {
   if (/\bRV\b/i.test(summaryText) || /SUV/i.test(summaryText)) types.push('RV/SUV');
   if (/승용/.test(summaryText)) types.push('승용');
   return types;
+}
+
+// 시즌은 (다중 선택이 아니라) 상품 하나당 보통 하나이므로 첫 매치만 사용합니다.
+// 타이어 상품에만 적용합니다. "#올시즌" 처럼 해시태그로 적어도 글자만 보므로 인식됩니다.
+function detectSeason(summaryText) {
+  if (/올시즌/.test(summaryText)) return '올시즌';
+  if (/윈터|겨울용/.test(summaryText)) return '윈터';
+  if (/썸머|여름용/.test(summaryText)) return '썸머';
+  return '';
 }
 
 // 연료타입은 (다중 선택이 아니라) 상품 하나당 보통 하나이므로 첫 매치만 사용합니다.
@@ -299,7 +316,7 @@ async function main() {
   const rawProducts = await fetchAllProducts(accessToken);
   console.log(`총 ${rawProducts.length}개 상품 조회 완료`);
 
-  console.log('상품별 요약설명(차종/연료) 조회 중...');
+  console.log('상품별 요약설명(차종/연료/시즌) 조회 중...');
   const products = [];
   let detailFailCount = 0;
   let skippedNoType = 0;
@@ -358,11 +375,14 @@ async function main() {
 
     let extraFields = {};
     if (productType === 'tire') {
-      extraFields = { vehicle: detectVehicleTypes(summaryText) };
+      extraFields = {
+        vehicle: detectVehicleTypes(summaryText),
+        season: detectSeason(summaryText)
+      };
     } else if (oilType === 'engine-oil') {
       extraFields = { fuelType: detectFuelType(summaryText) };
     }
-    // 브레이크오일은 연료타입 필드를 붙이지 않습니다.
+    // 브레이크오일은 연료타입/시즌 필드를 붙이지 않습니다.
 
     products.push({
       idx: p.prodNo,
@@ -382,7 +402,7 @@ async function main() {
   }
 
   if (detailFailCount > 0) {
-    console.warn(`상세 조회 실패한 상품 ${detailFailCount}개 (차종/연료 정보 없이 저장됨, 동기화는 정상 완료)`);
+    console.warn(`상세 조회 실패한 상품 ${detailFailCount}개 (차종/연료/시즌 정보 없이 저장됨, 동기화는 정상 완료)`);
   }
   if (skippedNoType > 0) {
     console.warn(`"타이어"/"오일" 최상위 카테고리에 속하지 않아 제외된 상품 ${skippedNoType}개`);
