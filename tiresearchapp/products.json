@@ -60,7 +60,8 @@
     "rim": 20,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": "올시즌"
   },
   {
     "idx": 56,
@@ -78,7 +79,8 @@
     "rim": 19,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": "올시즌"
   },
   {
     "idx": 55,
@@ -96,7 +98,8 @@
     "rim": 20,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": "윈터"
   },
   {
     "idx": 54,
@@ -114,7 +117,8 @@
     "rim": 18,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": "썸머"
   },
   {
     "idx": 53,
@@ -148,7 +152,8 @@
     "vehicle": [
       "RV/SUV",
       "승용"
-    ]
+    ],
+    "season": "올시즌"
   },
   {
     "idx": 50,
@@ -167,7 +172,8 @@
     "vehicle": [
       "RV/SUV",
       "승용"
-    ]
+    ],
+    "season": "올시즌"
   },
   {
     "idx": 49,
@@ -186,7 +192,8 @@
     "vehicle": [
       "RV/SUV",
       "승용"
-    ]
+    ],
+    "season": "올시즌"
   },
   {
     "idx": 48,
@@ -204,7 +211,8 @@
     "rim": 17,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": "윈터"
   },
   {
     "idx": 47,
@@ -222,7 +230,8 @@
     "rim": 18,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": ""
   },
   {
     "idx": 46,
@@ -255,7 +264,8 @@
     "rim": 19,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": ""
   },
   {
     "idx": 43,
@@ -273,7 +283,8 @@
     "rim": 17,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": ""
   },
   {
     "idx": 42,
@@ -291,7 +302,8 @@
     "rim": 18,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": ""
   },
   {
     "idx": 41,
@@ -309,7 +321,8 @@
     "rim": 20,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": ""
   },
   {
     "idx": 40,
@@ -356,7 +369,8 @@
     "rim": 14,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": ""
   },
   {
     "idx": 35,
@@ -374,7 +388,8 @@
     "rim": 15,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": ""
   },
   {
     "idx": 34,
@@ -392,7 +407,8 @@
     "rim": 15,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": ""
   },
   {
     "idx": 33,
@@ -410,7 +426,8 @@
     "rim": 14,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": ""
   },
   {
     "idx": 32,
@@ -428,7 +445,8 @@
     "rim": 14,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": ""
   },
   {
     "idx": 31,
@@ -446,7 +464,8 @@
     "rim": 14,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": ""
   },
   {
     "idx": 30,
@@ -479,7 +498,8 @@
     "rim": 18,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": "올시즌"
   },
   {
     "idx": 27,
@@ -497,7 +517,8 @@
     "rim": 19,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": "올시즌"
   },
   {
     "idx": 26,
@@ -515,7 +536,8 @@
     "rim": 18,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": "올시즌"
   },
   {
     "idx": 25,
@@ -533,7 +555,8 @@
     "rim": 20,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": "올시즌"
   },
   {
     "idx": 24,
@@ -551,7 +574,8 @@
     "rim": 19,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": "올시즌"
   },
   {
     "idx": 23,
@@ -569,7 +593,8 @@
     "rim": 19,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": "올시즌"
   },
   {
     "idx": 22,
@@ -585,7 +610,8 @@
     "width": 275,
     "profile": 40,
     "rim": 19,
-    "vehicle": []
+    "vehicle": [],
+    "season": "올시즌"
   },
   {
     "idx": 21,
@@ -603,7 +629,8 @@
     "rim": 15,
     "vehicle": [
       "승용"
-    ]
+    ],
+    "season": ""
   },
   {
     "idx": 20,
@@ -619,7 +646,8 @@
     "width": 165,
     "profile": 60,
     "rim": 14,
-    "vehicle": []
+    "vehicle": [],
+    "season": ""
   },
   {
     "idx": 19,
@@ -635,7 +663,8 @@
     "width": 165,
     "profile": 60,
     "rim": 15,
-    "vehicle": []
+    "vehicle": [],
+    "season": ""
   },
   {
     "idx": 18,
@@ -651,7 +680,8 @@
     "width": 195,
     "profile": 70,
     "rim": 14,
-    "vehicle": []
+    "vehicle": [],
+    "season": ""
   },
   {
     "idx": 17,
@@ -667,7 +697,8 @@
     "width": 175,
     "profile": 60,
     "rim": 13,
-    "vehicle": []
+    "vehicle": [],
+    "season": ""
   },
   {
     "idx": 16,
@@ -683,7 +714,8 @@
     "width": 165,
     "profile": 65,
     "rim": 14,
-    "vehicle": []
+    "vehicle": [],
+    "season": ""
   },
   {
     "idx": 15,
@@ -699,7 +731,8 @@
     "width": 245,
     "profile": 50,
     "rim": 20,
-    "vehicle": []
+    "vehicle": [],
+    "season": ""
   },
   {
     "idx": 14,
@@ -715,7 +748,8 @@
     "width": 215,
     "profile": 50,
     "rim": 17,
-    "vehicle": []
+    "vehicle": [],
+    "season": ""
   },
   {
     "idx": 13,
@@ -731,7 +765,8 @@
     "width": 225,
     "profile": 55,
     "rim": 17,
-    "vehicle": []
+    "vehicle": [],
+    "season": ""
   },
   {
     "idx": 12,
@@ -747,7 +782,8 @@
     "width": 235,
     "profile": 60,
     "rim": 17,
-    "vehicle": []
+    "vehicle": [],
+    "season": ""
   },
   {
     "idx": 11,
@@ -765,7 +801,8 @@
     "rim": 18,
     "vehicle": [
       "RV/SUV"
-    ]
+    ],
+    "season": ""
   },
   {
     "idx": 2,
@@ -781,6 +818,7 @@
     "width": 185,
     "profile": 65,
     "rim": 14,
-    "vehicle": []
+    "vehicle": [],
+    "season": ""
   }
 ]
