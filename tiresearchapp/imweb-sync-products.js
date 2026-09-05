@@ -56,6 +56,7 @@
  *     - "가솔린" 포함 → 가솔린
  *     - "디젤" 포함 → 디젤
  *     - "LPG" 포함 → LPG
+ *     - "하이브리드" 포함 → 하이브리드
  *   요약 설명에 해당 단어가 없으면 그 필터 대상에서 제외됩니다(항상 노출).
  *   상품 개수만큼 상세 API를 추가로 호출하므로, 상품이 많아지면 동기화 시간이 늘어납니다.
  *
@@ -246,6 +247,7 @@ function detectFuelType(summaryText) {
   if (/가솔린/.test(summaryText)) return '가솔린';
   if (/디젤/.test(summaryText)) return '디젤';
   if (/LPG/i.test(summaryText)) return 'LPG';
+  if (/하이브리드/i.test(summaryText)) return '하이브리드';
   return '';
 }
 
