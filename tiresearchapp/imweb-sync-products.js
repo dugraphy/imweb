@@ -304,7 +304,7 @@ async function updateGithubSecret(name, value) {
     headers: { Authorization: `Bearer ${GH_PAT}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
     body: JSON.stringify({ encrypted_value: encrypted, key_id: keyData.key_id })
   });
-  if (!putRes.ok) console.error('시크릿 자동 갱신 실패:', await putRes.text());
+  if (!putRes.ok) console.error('시크릿 자동 갱신 실패: status=' + putRes.status + ' ' + putRes.statusText, await putRes.text());
   else console.log(`GitHub Secret [${name}] 갱신 완료`);
 }
 
