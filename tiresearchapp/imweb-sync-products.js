@@ -276,36 +276,48 @@ function parseDotGrade(title) {
   return `DOT${m[1]}`;
 }
 
-async function updateGithubSecret(name, value) {
+async function updateGithubSecret(name, value, maxAttempts = 3) {
   if (!GH_PAT || !GITHUB_REPOSITORY) {
     console.log('GH_PAT 또는 GITHUB_REPOSITORY가 없어 시크릿 자동 갱신은 건너뜁니다.');
-    return;
+    return false;
   }
   const sodium = require('libsodium-wrappers');
   await sodium.ready;
   const [owner, repo] = GITHUB_REPOSITORY.split('/');
-  const keyRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/actions/secrets/public-key`, {
-    headers: { Authorization: `Bearer ${GH_PAT}`, Accept: 'application/vnd.github+json' }
-  });
-  if (!keyRes.ok) {
-    const bodyText = await keyRes.text();
-    throw new Error(`공개키 조회 실패 (${keyRes.status}): ${bodyText}`);
+  const headers = { Authorization: `Bearer ${GH_PAT}`, Accept: 'application/vnd.github+json' };
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const keyRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/actions/secrets/public-key`, { headers });
+      if (!keyRes.ok) {
+        throw Object.assign(new Error(`공개키 조회 실패 (${keyRes.status}): ${await keyRes.text()}`), { status: keyRes.status });
+      }
+      const keyData = await keyRes.json();
+      if (!keyData || !keyData.key) throw new Error('공개키 응답에 key 필드가 없습니다');
+
+      const binKey = sodium.from_base64(keyData.key, sodium.base64_variants.ORIGINAL);
+      const encBytes = sodium.crypto_box_seal(sodium.from_string(value), binKey);
+      const encrypted = sodium.to_base64(encBytes, sodium.base64_variants.ORIGINAL);
+
+      const putRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/actions/secrets/${name}`, {
+        method: 'PUT',
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ encrypted_value: encrypted, key_id: keyData.key_id })
+      });
+      if (putRes.ok) {
+        console.log(`GitHub Secret [${name}] 갱신 완료`);
+        return true;
+      }
+      throw Object.assign(new Error(`시크릿 저장 실패 (${putRes.status}): ${await putRes.text()}`), { status: putRes.status });
+    } catch (err) {
+      // 상태코드가 없거나(네트워크 오류), 5xx, 429만 재시도. 401/403/404/422는 재시도해도 소용없음
+      const retryable = !err.status || err.status >= 500 || err.status === 429;
+      console.error(`시크릿 자동 갱신 실패 (시도 ${attempt}/${maxAttempts}): ${err.message}`);
+      if (!retryable || attempt === maxAttempts) return false;
+      await sleep(2000 * attempt);
+    }
   }
-  const keyData = await keyRes.json();
-  if (!keyData || !keyData.key) {
-    throw new Error('공개키 응답에 key 필드가 없습니다: ' + JSON.stringify(keyData));
-  }
-  const binKey = sodium.from_base64(keyData.key, sodium.base64_variants.ORIGINAL);
-  const binVal = sodium.from_string(value);
-  const encBytes = sodium.crypto_box_seal(binVal, binKey);
-  const encrypted = sodium.to_base64(encBytes, sodium.base64_variants.ORIGINAL);
-  const putRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/actions/secrets/${name}`, {
-    method: 'PUT',
-    headers: { Authorization: `Bearer ${GH_PAT}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
-    body: JSON.stringify({ encrypted_value: encrypted, key_id: keyData.key_id })
-  });
-  if (!putRes.ok) console.error('시크릿 자동 갱신 실패: status=' + putRes.status + ' ' + putRes.statusText, await putRes.text());
-  else console.log(`GitHub Secret [${name}] 갱신 완료`);
+  return false;
 }
 
 async function main() {
@@ -314,11 +326,12 @@ async function main() {
   const accessToken = tokenData.accessToken;
   console.log('토큰 갱신 완료. scope:', tokenData.scope);
 
+  let secretSaveFailed = false;
   if (tokenData.refreshToken && tokenData.refreshToken !== REFRESH_TOKEN) {
-    try {
-      await updateGithubSecret('IMWEB_REFRESH_TOKEN', tokenData.refreshToken);
-    } catch (secretErr) {
-      console.error('리프레시 토큰 자동 저장 실패 (상품 동기화는 계속 진행합니다):', secretErr.message);
+    const saved = await updateGithubSecret('IMWEB_REFRESH_TOKEN', tokenData.refreshToken);
+    if (!saved) {
+      secretSaveFailed = true;
+      console.error('⚠️ 새 리프레시 토큰 저장 실패: 다음 실행부터 30170 에러가 납니다. 재인증이 필요합니다.');
     }
   }
 
@@ -429,6 +442,8 @@ async function main() {
 
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(products, null, 2), 'utf-8');
   console.log(`저장 완료: ${OUTPUT_FILE} (${products.length}개 상품)`);
+  
+  if (secretSaveFailed) process.exitCode = 1;
 }
 
 main().catch(err => {
